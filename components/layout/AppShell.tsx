@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { MotionConfig } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 import Logo from './Logo';
 import Footer from './Footer';
@@ -28,8 +28,11 @@ const LiveDemo = dynamic(() => import('@/components/sections/LiveDemo'), {
 export default function AppShell() {
   const [active, setActive] = useState('#about');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
+    setDarkMode(document.documentElement.classList.contains('dark'));
+
     const sections = navLinks
       .map((item) => document.querySelector(item.href))
       .filter((section): section is Element => section !== null);
@@ -48,6 +51,16 @@ export default function AppShell() {
   }, []);
 
   const closeMenu = () => setMobileOpen(false);
+  const toggleTheme = () => {
+    const nextDarkMode = !document.documentElement.classList.contains('dark');
+    document.documentElement.classList.toggle('dark', nextDarkMode);
+    setDarkMode(nextDarkMode);
+    try {
+      localStorage.setItem('theme', nextDarkMode ? 'dark' : 'light');
+    } catch (error) {
+      console.error('Unable to save the theme preference.', error);
+    }
+  };
 
   return (
     <MotionConfig reducedMotion="user">
@@ -75,6 +88,15 @@ export default function AppShell() {
           <a href="#contact" className="btn-pill btn-primary !hidden !h-11 !px-5 !text-sm focus-ring xl:!inline-flex">
             Discuss your use case
           </a>
+          <button
+            type="button"
+            className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-bg text-ink/80 transition-colors hover:text-pink"
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            onClick={toggleTheme}
+          >
+            {darkMode ? <Sun size={19} aria-hidden="true" /> : <Moon size={19} aria-hidden="true" />}
+          </button>
           <button
             type="button"
             className="focus-ring flex h-11 w-11 items-center justify-center rounded-full xl:hidden"
