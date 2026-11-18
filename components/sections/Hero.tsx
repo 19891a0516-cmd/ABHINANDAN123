@@ -164,7 +164,7 @@ export default function Hero() {
             <SceneErrorBoundary fallback={
               <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-transparent via-[#101A3A]/10 to-[#090B14]/25" />
             }>
-              <HeroScene />
+              <HeroScene activeStageIndex={active} />
             </SceneErrorBoundary>
           </div>
 

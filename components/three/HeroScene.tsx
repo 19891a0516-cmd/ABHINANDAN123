@@ -1,11 +1,73 @@
 'use client';
 
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { stages } from '@/lib/data';
 import RadarOrb from './objects/RadarOrb';
 import NeuralCrystal from './objects/NeuralCrystal';
 import NetworkOrb from './objects/NetworkOrb';
+
+function StageTrajectory({ activeStageIndex }: { activeStageIndex: number }) {
+  const activeRing = useRef<THREE.Mesh>(null);
+  const points = useMemo(
+    () => [
+      new THREE.Vector3(-2.2, -0.55, 0.72),
+      new THREE.Vector3(-1.1, 0.48, 0.72),
+      new THREE.Vector3(0, 0.08, 0.72),
+      new THREE.Vector3(1.1, 0.58, 0.72),
+      new THREE.Vector3(2.2, -0.3, 0.72),
+    ],
+    [],
+  );
+  const linePositions = useMemo(() => {
+    const curvePoints = new THREE.CatmullRomCurve3(points).getPoints(80);
+    const vertices: number[] = [];
+    for (let index = 0; index < curvePoints.length - 1; index++) {
+      vertices.push(
+        curvePoints[index].x, curvePoints[index].y, curvePoints[index].z,
+        curvePoints[index + 1].x, curvePoints[index + 1].y, curvePoints[index + 1].z,
+      );
+    }
+    return new Float32Array(vertices);
+  }, [points]);
+
+  useFrame((state) => {
+    if (activeRing.current) {
+      const pulse = 1 + Math.sin(state.clock.elapsedTime * 2.4) * 0.08;
+      activeRing.current.scale.setScalar(pulse);
+    }
+  });
+
+  return (
+    <group>
+      <lineSegments>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
+        </bufferGeometry>
+        <lineBasicMaterial color="#E6E9FF" transparent opacity={0.42} />
+      </lineSegments>
+      {stages.map((stage, index) => (
+        <group key={stage.name} position={points[index]}>
+          <mesh scale={index === activeStageIndex ? 1.35 : 1}>
+            <sphereGeometry args={[0.075, 20, 20]} />
+            <meshStandardMaterial
+              color={stage.color}
+              emissive={stage.color}
+              emissiveIntensity={index === activeStageIndex ? 1.4 : 0.35}
+            />
+          </mesh>
+          {index === activeStageIndex && (
+            <mesh ref={activeRing}>
+              <torusGeometry args={[0.16, 0.012, 8, 48]} />
+              <meshBasicMaterial color={stage.color} transparent opacity={0.8} />
+            </mesh>
+          )}
+        </group>
+      ))}
+    </group>
+  );
+}
 
 function ParallaxRig() {
   const { camera, pointer } = useThree();
@@ -22,7 +84,7 @@ function ParallaxRig() {
   return null;
 }
 
-export default function HeroScene() {
+export default function HeroScene({ activeStageIndex }: { activeStageIndex: number }) {
   const [canvasEnabled, setCanvasEnabled] = useState(false);
 
   useEffect(() => {
@@ -63,10 +125,11 @@ export default function HeroScene() {
 
         <fog attach="fog" args={['#0A0A0A', 8, 14]} />
 
-        <RadarOrb position={[-2.1, 0.4, 0]} />
+        <RadarOrb position={[-2.1, 0.4, 0]} color={stages[activeStageIndex].color} />
         <NeuralCrystal position={[2.1, -0.3, -0.6]} />
         <NetworkOrb position={[0, -1.05, -1.4]} />
 
+        <StageTrajectory activeStageIndex={activeStageIndex} />
         <ParallaxRig />
       </Suspense>
     </Canvas>

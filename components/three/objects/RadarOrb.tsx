@@ -9,7 +9,13 @@ import * as THREE from 'three';
  * "Radar sphere" — a glass orb wrapped in animated rings with a rotating
  * radar-sweep wedge and a soft neon glow. Rotates forever, floats gently.
  */
-export default function RadarOrb({ position = [0, 0, 0] as [number, number, number] }) {
+export default function RadarOrb({
+  position = [0, 0, 0],
+  color = '#FF4F87',
+}: {
+  position?: [number, number, number];
+  color?: THREE.ColorRepresentation;
+}) {
   const group = useRef<THREE.Group>(null);
   const sweep = useRef<THREE.Mesh>(null);
   const ring1 = useRef<THREE.Mesh>(null);
@@ -34,7 +40,7 @@ export default function RadarOrb({ position = [0, 0, 0] as [number, number, numb
         <mesh>
           <sphereGeometry args={[0.85, 64, 64]} />
           <MeshDistortMaterial
-            color="#FF4F87"
+            color={color}
             transparent
             opacity={0.28}
             roughness={0.05}
@@ -47,7 +53,7 @@ export default function RadarOrb({ position = [0, 0, 0] as [number, number, numb
         {/* inner glow */}
         <mesh scale={0.5}>
           <sphereGeometry args={[0.85, 32, 32]} />
-          <meshBasicMaterial color="#FF7BA6" transparent opacity={0.5} />
+          <meshBasicMaterial color={color} transparent opacity={0.5} />
         </mesh>
 
         {/* rings */}
@@ -66,7 +72,7 @@ export default function RadarOrb({ position = [0, 0, 0] as [number, number, numb
           <meshBasicMaterial color="#FF4F87" transparent opacity={0.22} side={THREE.DoubleSide} />
         </mesh>
 
-        <pointLight color="#FF4F87" intensity={4} distance={4} decay={2} />
+        <pointLight color={color} intensity={4} distance={4} decay={2} />
       </group>
     </Float>
   );
