@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/radarseq12',
-  assetPrefix: '/radarseq12/',
+  basePath: '/Radarseq123',
+  assetPrefix: '/Radarseq123/',
   trailingSlash: true,
   images: {
     unoptimized: true,

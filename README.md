@@ -11,13 +11,13 @@ npm run dev
 
 ## Static GitHub Pages deployment
 
-The project is configured for the repository path `/radarseq12`:
+The project is configured for the repository path `/Radarseq123`:
 
 ```bash
 npm run build
 ```
 
-Next.js exports the static site to `out/`. The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys `out/` when changes reach `main` or when manually dispatched. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**.
+Next.js exports the static site to `out/`. The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys `out/` when changes reach `main` or when manually dispatched. Enable GitHub Pages for the repository and set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. The published URL is `https://dyavathiabhinandan.github.io/Radarseq123/`.
 
 No Next.js server or API route is required. The contact form prepares a `mailto:` draft for `info@radarseq.ai`; no form data is submitted automatically.
 
