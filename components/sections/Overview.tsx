@@ -6,12 +6,17 @@ import { overviewCards } from '@/lib/data';
 
 export default function Overview() {
   return (
-    <section id="overview" className="py-32 px-6 lg:px-10 bg-bg">
+    <section id="about" className="py-32 px-6 lg:px-10 bg-bg">
       <div className="max-w-5xl mx-auto">
         <Reveal className="mb-20">
+          <div className="section-label mb-4">About RadarSeq</div>
           <h2 className="font-display font-extrabold tracking-[-0.03em] leading-[1.1] text-[44px] md:text-[56px] lg:text-[64px]">
-            How RadarSeq sees what others miss.
+            A temporal perspective on changing behaviour.
           </h2>
+          <p className="mt-7 max-w-3xl text-lg leading-relaxed text-ink/60">
+            RadarSeq grew from a research question: what do we miss when we reduce a history to a snapshot?
+            The project connects temporal modelling, explainable AI and practical decision workflows.
+          </p>
         </Reveal>
 
         <div className="space-y-16">

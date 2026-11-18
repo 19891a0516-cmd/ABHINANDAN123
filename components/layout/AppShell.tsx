@@ -1,7 +1,10 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { Menu, X, Sun, Moon, ArrowLeft, ArrowRight } from 'lucide-react';
+import { MotionConfig } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { navLinks } from '@/lib/data';
 import Logo from './Logo';
 import Footer from './Footer';
 import Hero from '@/components/sections/Hero';
@@ -11,203 +14,116 @@ import Projects from '@/components/sections/Projects';
 import Evolution from '@/components/sections/Evolution';
 import Publications from '@/components/sections/Publications';
 import Research from '@/components/sections/Research';
+import Impact from '@/components/sections/Impact';
+import Workflow from '@/components/sections/Workflow';
 import Team from '@/components/sections/Team';
-import CtaBanner from '@/components/sections/CtaBanner';
 import Contact from '@/components/sections/Contact';
+import EnterpriseApplications from '@/components/sections/EnterpriseApplications';
 
-const navItems = [
-  { key: 'overview', label: 'Overview', Component: Overview },
-  { key: 'innovations', label: 'Innovations', Component: Innovations },
-  { key: 'projects', label: 'Projects', Component: Projects },
-  { key: 'evolution', label: 'Evolution', Component: Evolution },
-  { key: 'publications', label: 'Publications', Component: Publications },
-  { key: 'research', label: 'Applied Research', Component: Research },
-  { key: 'team', label: 'Team', Component: Team },
-] as const;
-
-type SectionKey = (typeof navItems)[number]['key'];
+const LiveDemo = dynamic(() => import('@/components/sections/LiveDemo'), {
+  ssr: false,
+  loading: () => <div className="min-h-96 animate-pulse rounded-3xl bg-slate-100" aria-label="Loading demonstration" />,
+});
 
 export default function AppShell() {
-  const [active, setActive] = useState<SectionKey>('overview');
+  const [active, setActive] = useState('#about');
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
+    const sections = navLinks
+      .map((item) => document.querySelector(item.href))
+      .filter((section): section is Element => section !== null);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(`#${visible.target.id}`);
+      },
+      { rootMargin: '-20% 0px -65% 0px', threshold: [0, 0.25, 0.5] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, [active]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    document.documentElement.classList.toggle('dark', next);
-    try {
-      localStorage.setItem('theme', next ? 'dark' : 'light');
-    } catch (e) {
-      /* ignore */
-    }
-  };
-
-  const index = navItems.findIndex((n) => n.key === active);
-  const goPrev = () => setActive(navItems[(index - 1 + navItems.length) % navItems.length].key);
-  const goNext = () => setActive(navItems[(index + 1) % navItems.length].key);
-
-  const Active = navItems[index].Component;
-
-  const handleNavigate = (key: string) => {
-    if (navItems.some((n) => n.key === key)) {
-      setActive(key as SectionKey);
-    }
-  };
+  const closeMenu = () => setMobileOpen(false);
 
   return (
-    <div className="min-h-screen bg-bg text-ink font-body flex">
-      <aside className="hidden lg:flex flex-col justify-between w-72 shrink-0 h-screen sticky top-0 px-7 py-8">
-        <div>
-          <button onClick={() => setActive('overview')} className="focus-ring rounded-md">
+    <MotionConfig reducedMotion="user">
+    <div className="min-h-screen bg-bg text-ink">
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className="site-header sticky top-0 z-50 border-b border-border/70 bg-bg/90 backdrop-blur-xl">
+        <div className="mx-auto flex min-h-16 max-w-[1440px] items-center justify-between gap-6 px-5 lg:px-8">
+          <a href="#home" aria-label="RadarSeq home" onClick={closeMenu} className="shrink-0 rounded-md focus-ring">
             <Logo />
-          </button>
-
-          <nav className="flex flex-col gap-2 mt-10">
-            {navItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => setActive(item.key)}
-                className={`text-left text-sm font-semibold transition-all rounded-full px-3 py-2 focus-ring ${
-                  active === item.key
-                    ? 'text-white bg-gradient-to-r from-pink to-purple shadow-glow'
-                    : 'text-ink/70 hover:text-pink hover:bg-pink/5'
+          </a>
+          <nav aria-label="Main navigation" className="hidden min-w-0 flex-1 items-center justify-end gap-1 xl:flex">
+            {navLinks.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={active === item.href ? 'location' : undefined}
+                className={`nav-link rounded-full px-3 py-2 text-sm font-semibold transition-colors focus-ring ${
+                  active === item.href ? 'bg-pink/10 text-pink' : 'text-ink/70 hover:bg-pink/5 hover:text-pink'
                 }`}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
           </nav>
-        </div>
-
-        <div className="flex items-center gap-3">
+          <a href="#contact" className="btn-pill btn-primary !hidden !h-11 !px-5 !text-sm focus-ring xl:!inline-flex">
+            Discuss your use case
+          </a>
           <button
-            onClick={goPrev}
-            aria-label="Previous section"
-            className="w-10 h-10 flex items-center justify-center rounded-full text-ink/60 hover:text-pink hover:bg-pink/5 transition-colors focus-ring"
+            type="button"
+            className="focus-ring flex h-11 w-11 items-center justify-center rounded-full xl:hidden"
+            aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMobileOpen((open) => !open)}
           >
-            <ArrowLeft size={16} strokeWidth={2} />
-          </button>
-          <button
-            onClick={goNext}
-            aria-label="Next section"
-            className="w-10 h-10 flex items-center justify-center rounded-full text-ink/60 hover:text-pink hover:bg-pink/5 transition-colors focus-ring"
-          >
-            <ArrowRight size={16} strokeWidth={2} />
+            {mobileOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
         </div>
-      </aside>
-
-      <div className="flex-1 min-w-0">
-        <header
-          className={`sticky top-0 z-40 transition-all duration-300 ${
-            scrolled ? 'bg-bg/80 backdrop-blur-xl shadow-soft' : 'bg-transparent'
-          }`}
-        >
-          <div className="flex items-center justify-between px-6 lg:px-10 h-16">
-            <button onClick={() => setActive('overview')} className="flex items-center gap-3 lg:hidden focus-ring rounded-md">
-              <Logo size={30} />
-            </button>
-
-            <div className="hidden lg:block" />
-
-            <div className="hidden lg:flex items-center gap-4">
-              <button
-                aria-label="Toggle dark mode"
-                onClick={toggleTheme}
-                className="w-10 h-10 flex items-center justify-center rounded-full hover:text-pink hover:bg-pink/5 transition-colors focus-ring"
-              >
-                {isDark ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
-              </button>
-              <a href="#contact" className="btn-pill btn-primary !h-11 !px-6 !text-sm focus-ring">
-                Book a demo
-              </a>
-            </div>
-
-            <button
-              className="lg:hidden w-11 h-11 flex items-center justify-center rounded-full focus-ring"
-              aria-label="Toggle menu"
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen((v) => !v)}
-            >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
-
-          {mobileOpen && (
-            <div className="lg:hidden bg-bg/95 backdrop-blur-xl px-6 py-6 flex flex-col gap-5">
-              {navItems.map((item) => (
-                <button
-                  key={item.key}
-                  onClick={() => {
-                    setActive(item.key);
-                    setMobileOpen(false);
-                  }}
-                  className={`text-left text-base font-semibold rounded-full px-3 py-2 ${
-                    active === item.key ? 'text-white bg-gradient-to-r from-pink to-purple' : 'text-ink'
+        {mobileOpen && (
+          <nav id="mobile-navigation" aria-label="Mobile navigation" className="border-t border-border bg-bg px-5 py-4 xl:hidden">
+            <div className="mx-auto grid max-w-3xl grid-cols-2 gap-2 sm:grid-cols-3">
+              {navLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active === item.href ? 'location' : undefined}
+                  onClick={closeMenu}
+                  className={`rounded-xl px-3 py-3 text-sm font-semibold focus-ring ${
+                    active === item.href ? 'bg-pink/10 text-pink' : 'text-ink/75 hover:bg-pink/5'
                   }`}
                 >
                   {item.label}
-                </button>
+                </a>
               ))}
-
-              <div className="flex items-center gap-3 pt-3">
-                <button
-                  onClick={goPrev}
-                  aria-label="Previous section"
-                  className="w-10 h-10 flex items-center justify-center rounded-full text-ink/60 focus-ring"
-                >
-                  <ArrowLeft size={16} strokeWidth={2} />
-                </button>
-                <button
-                  onClick={goNext}
-                  aria-label="Next section"
-                  className="w-10 h-10 flex items-center justify-center rounded-full text-ink/60 focus-ring"
-                >
-                  <ArrowRight size={16} strokeWidth={2} />
-                </button>
-              </div>
-
-              <button onClick={toggleTheme} className="flex items-center gap-2 text-sm font-semibold text-ink/80 pt-3">
-                {isDark ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
-                {isDark ? 'Light mode' : 'Dark mode'}
-              </button>
-
-              <a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                className="btn-pill btn-primary w-full mt-1"
-              >
-                Book a demo
-              </a>
             </div>
-          )}
-        </header>
+          </nav>
+        )}
+      </header>
 
-        <main>
-          {active === 'overview' && <Hero />}
-          <Active />
-          <CtaBanner />
-          <Contact />
-          <Footer onNavigate={handleNavigate} />
-        </main>
-      </div>
+      <main id="main">
+        <Hero />
+        <Overview />
+        <Innovations />
+        <Projects />
+        <Evolution />
+        <Publications />
+        <Research />
+        <Impact />
+        <Workflow />
+        <LiveDemo />
+        <EnterpriseApplications />
+        <Team />
+        <Contact />
+      </main>
+      <Footer />
     </div>
+    </MotionConfig>
   );
 }

@@ -2,7 +2,11 @@
 
 import Reveal from '@/components/ui/Reveal';
 import TiltCard from '@/components/ui/TiltCard';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { team } from '@/lib/data';
+
+const teamColors = ['#7C5CE0', '#FF4F87', '#3355E8', '#0F9488', '#C9930F', '#E8622C', '#5B4BFF', '#A93226'];
 
 function initials(name: string) {
   return name
@@ -18,7 +22,7 @@ export default function Team() {
     <section id="team" className="py-24 px-6 lg:px-10 bg-bg">
       <div className="max-w-container mx-auto">
         <Reveal className="text-center mb-16">
-          <div className="section-label mb-4">Team</div>
+          <div className="section-label mb-4">Our team</div>
           <h2 className="font-display font-extrabold text-[32px] md:text-[44px] lg:text-[52px] tracking-tight max-w-3xl mx-auto">
             The people behind RadarSeq.
           </h2>
@@ -33,22 +37,64 @@ export default function Team() {
         </Reveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {team.map((m, i) => (
-            <Reveal key={m.name} delay={(i % 4) * 0.06}>
-              <TiltCard className="card p-7 pt-6 h-full text-center border-t-[3px] rounded-card" style={{ borderTopColor: m.color } as React.CSSProperties} max={10}>
+          {team.map((m, i) => {
+            const isAbhinandan = m.name === 'Abhinandan Dyavathi';
+            const color = teamColors[i % teamColors.length];
+            const card = (
+              <TiltCard
+                className={`card h-full rounded-card border-t-[3px] p-7 pt-6 text-center ${
+                  isAbhinandan ? 'transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-glow' : ''
+                }`}
+                style={{ borderTopColor: color }}
+                max={10}
+              >
                 <div
-                  className="w-16 h-16 rounded-full mx-auto mb-5 mt-2 flex items-center justify-center text-white font-display font-bold text-lg"
-                  style={{ background: m.color }}
+                  className="mx-auto mb-5 mt-2 flex h-16 w-16 items-center justify-center rounded-full font-display text-lg font-bold text-white"
+                  style={{ background: color }}
                 >
                   {initials(m.name)}
                 </div>
-                <h3 className="font-display font-bold text-[15px] leading-snug mb-1.5">{m.name}</h3>
-                <p className="text-xs font-semibold leading-relaxed" style={{ color: m.color }}>
-                  {m.role}
-                </p>
+                <h3 className="mb-1.5 font-display text-[15px] font-bold leading-snug">
+                  {isAbhinandan ? 'ABHINANDAN DYAVATHI' : m.name}
+                </h3>
+                {isAbhinandan ? (
+                  <>
+                    <p className="text-xs font-semibold leading-relaxed text-ink/70">
+                      Software Developer • AI / ML Researcher
+                    </p>
+                    <p className="mt-2 text-xs text-gray">London, United Kingdom</p>
+                    <p className="mt-4 text-sm leading-relaxed text-gray">
+                      Software Developer and MSc Computer Science researcher focused on software engineering, artificial intelligence, machine learning, full-stack development, and data-driven systems.
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-pink">
+                      View Profile
+                      <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  </>
+                ) : (
+                  <p className="text-xs font-semibold leading-relaxed" style={{ color }}>
+                    {m.role}
+                  </p>
+                )}
               </TiltCard>
-            </Reveal>
-          ))}
+            );
+
+            return (
+              <Reveal key={m.name} delay={(i % 4) * 0.06}>
+                {isAbhinandan ? (
+                  <Link href="/team/abhinandan-dyavathi" className="group block h-full rounded-card">
+                    {card}
+                  </Link>
+                ) : 'href' in m && m.href ? (
+                  <a href={m.href} target="_blank" rel="noreferrer" className="group block h-full rounded-card focus-ring">
+                    {card}
+                  </a>
+                ) : (
+                  card
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

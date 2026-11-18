@@ -1,252 +1,289 @@
-export const stages = [
-  { name: 'Stable', color: '#0F9488' },
-  { name: 'Drift', color: '#3355E8' },
-  { name: 'Squeeze', color: '#C9930F' },
-  { name: 'Stress', color: '#E8622C' },
-  { name: 'Distress', color: '#A93226' },
-]
+export type RiskStage = {
+  name: string;
+  color: string;
+  description: string;
+};
+
+export const stages: RiskStage[] = [
+  { name: 'Stable', color: '#0F9488', description: 'The observed history is comparatively steady.' },
+  { name: 'Drift', color: '#3355E8', description: 'Behaviour is beginning to move from its earlier pattern.' },
+  { name: 'Squeeze', color: '#C9930F', description: 'Several pressures are converging and merit closer review.' },
+  { name: 'Stress', color: '#E8622C', description: 'The recent trajectory shows material pressure.' },
+  { name: 'Distress', color: '#A93226', description: 'The observed pattern warrants timely human attention.' },
+];
 
 export const overviewCards = [
   {
-    title: 'Trajectory, not snapshot',
-    body: 'RadarSeq reads the path a signal takes over time, not a single point-in-time score — so a slow drift toward risk is visible long before it becomes a loss.',
+    title: 'Understand change over time',
+    body: 'RadarSeq studies behavioural histories as sequences, so changes and their timing are visible alongside the latest observation.',
   },
   {
-    title: 'Five-stage radar',
-    body: 'Every entity is placed on a five-stage scale — Stable, Drift, Squeeze, Stress, Distress — so a portfolio\'s risk position is legible at a glance.',
+    title: 'Put evidence beside the signal',
+    body: 'The research explores explanations that help reviewers inspect influential periods and observations before deciding how to respond.',
   },
   {
-    title: 'Explainable by design',
-    body: 'Every prediction carries a full audit trail back to the signals that produced it, built for review, not just for accuracy.',
+    title: 'Start with the decision',
+    body: 'Data, evaluation and delivery are scoped around a defined business question. Research findings are not assumed to transfer without validation.',
   },
-]
+] as const;
 
 export const innovations = [
   {
     n: '01',
-    title: 'Sequence-aware encoding',
-    body: 'Behavioural history is encoded as an ordered sequence, so the model learns how risk builds, not just what it looks like at one moment.',
+    title: 'Connect the evidence',
+    body: 'Bring relevant activity, transaction and operational histories into a consistent, usable sequence.',
   },
   {
     n: '02',
-    title: 'Stage-transition modelling',
-    body: 'RadarSeq models the transitions between risk stages directly, capturing momentum that a single classification score discards.',
+    title: 'Model the change',
+    body: 'Select and evaluate a model against the business question, available data and an agreed baseline.',
   },
   {
     n: '03',
-    title: 'Cross-source fusion',
-    body: 'Signals from separate systems — transactions, engagement, support, payments — are fused into one continuous risk trajectory.',
+    title: 'Explain the signal',
+    body: 'Investigate direction, timing and influential observations before deciding how to act.',
   },
-]
+  {
+    n: '04',
+    title: 'Make it useful',
+    body: 'Shape delivery for a dashboard, scheduled export or agreed API integration and a human review workflow.',
+  },
+] as const;
 
-export const projects = [
+export type Project = {
+  slug: string;
+  title: string;
+  status: string;
+  summary: string;
+  question: string;
+  evidence: string[];
+  outputs: string[];
+  caveat: string;
+};
+
+export const projects: Project[] = [
   {
-    title: 'Customer Churn Prediction',
-    status: 'Validated',
-    statusColor: '#0F9488',
-    iconColor: '#0F9488',
-    icon: 'arrow',
-    questions: [
-      'Which customers are drifting toward cancellation this quarter?',
-      'What behaviour change signalled the shift?',
-      'Which accounts are worth an intervention now?',
+    slug: 'customer-retention',
+    title: 'Customer churn & retention',
+    status: 'Research-validated',
+    summary: 'Find patterns behind disengagement and focus retention effort where it may matter.',
+    question: 'Which customers deserve attention, and what changed?',
+    evidence: [
+      'Dated usage and transaction records',
+      'Pseudonymous customer identifiers',
+      'Engagement and service events',
+      'An agreed churn definition and horizon',
     ],
+    outputs: [
+      'Individual risk estimates after fit assessment',
+      'Changing risk and influential periods',
+      'A prioritised retention review queue',
+      'Evidence for a more informed conversation',
+    ],
+    caveat: 'The research is in courier churn. Feature, outcome and data fit must be assessed before applying a model to a new business.',
   },
   {
-    title: 'Loan Risk Management',
-    status: 'In development',
-    statusColor: '#C9930F',
-    iconColor: '#C9930F',
-    icon: 'coin',
-    questions: [
-      'Which borrowers are entering payment stress early?',
-      'How is a loan\'s risk trajectory changing month over month?',
-      'Where should collections focus limited capacity?',
+    slug: 'loan-risk',
+    title: 'Loan risk management',
+    status: 'In implementation',
+    summary: 'Bring repayment behaviour and portfolio signals into a clearer, time-based view.',
+    question: 'Where is payment pressure building across the book?',
+    evidence: [
+      'Repayment and balance histories',
+      'Arrears and account servicing events',
+      'Agreed borrower-level indicators',
+      'Relevant portfolio and market context',
     ],
+    outputs: [
+      'Account-level watchlist priorities',
+      'Repayment and risk trajectories',
+      'Supporting evidence for escalation',
+      'A portfolio view for risk and servicing teams',
+    ],
+    caveat: 'A pilot is scoped around the available data, outcomes and existing risk policies.',
   },
   {
-    title: 'Fraud & AML Monitoring',
+    slug: 'fraud-aml',
+    title: 'Fraud & AML monitoring',
     status: 'Active research',
-    statusColor: '#3355E8',
-    iconColor: '#FF4F87',
-    icon: 'shield',
-    questions: [
-      'Which account patterns resemble known fraud trajectories?',
-      'How confident is the model in a flagged case?',
-      'What evidence supports escalation to a case officer?',
+    summary: 'Explore event sequences that distinguish an isolated anomaly from a pattern worth investigating.',
+    question: 'What happened around the event that raised the alert?',
+    evidence: [
+      'Approved transaction event histories',
+      'Account or device changes',
+      'Payment patterns and timing',
+      'Resolved case outcomes, where available',
     ],
+    outputs: [
+      'Behavioural-change indicators',
+      'A contextual event timeline',
+      'Evidence for human-led case review',
+      'Prioritisation alongside existing controls',
+    ],
+    caveat: 'This is a research collaboration, not a replacement for AML controls or a claim of certified compliance.',
   },
   {
-    title: 'Property & Collateral Risk',
+    slug: 'property-collateral',
+    title: 'Property & collateral risk',
     status: 'Active research',
-    statusColor: '#3355E8',
-    iconColor: '#7C5CE0',
-    icon: 'home',
-    questions: [
-      'Is collateral value trending against the loan balance?',
-      'Which assets need re-valuation first?',
-      'What early signals precede a collateral shortfall?',
+    summary: 'Connect tenant behaviour, income and market conditions over time.',
+    question: 'Which assets need a closer review, and why now?',
+    evidence: [
+      'Rent payments and lease events',
+      'Occupancy and income histories',
+      'Dated valuations and asset changes',
+      'Licensed market and local indicators',
     ],
+    outputs: [
+      'Tenant and asset review priorities',
+      'An evolving view of portfolio exposure',
+      'Segment and concentration comparisons',
+      'Evidence to support asset-management action',
+    ],
+    caveat: 'Property applications are research-led concepts requiring partner data and domain-specific evaluation.',
   },
-]
-
-export const pricingPlans = [
-  {
-    name: 'Pilot',
-    price: 'Custom',
-    description: 'For teams validating risk signals in one business unit.',
-    features: ['1 use case', 'Data integration support', 'Executive dashboard', 'Custom risk scoring'],
-    cta: 'Start pilot',
-    featured: false,
-  },
-  {
-    name: 'Scale',
-    price: '£6k/mo',
-    description: 'For operators monitoring portfolios across multiple teams and channels.',
-    features: ['Multi-source signal fusion', 'Live risk radar', 'Explainability exports', 'Priority support'],
-    cta: 'Book demo',
-    featured: true,
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    description: 'For regulated organisations needing governance, SLAs, and deep model review.',
-    features: ['Private deployment', 'SLA-backed support', 'Audit trails', 'Dedicated onboarding'],
-    cta: 'Talk to sales',
-    featured: false,
-  },
-]
-
-export const testimonials = [
-  {
-    quote: 'RadarSeq gave us visibility into risk movement before our legacy scorecards even blinked. It changed how we prioritised intervention.',
-    name: 'Maya Zhou',
-    title: 'VP Risk Intelligence',
-    company: 'Northstar Finance',
-  },
-  {
-    quote: 'The model is explainable, operational and genuinely useful to teams on the ground. We saw more actionable signals in two months than in a year of static reporting.',
-    name: 'Daniel Patel',
-    title: 'Head of Portfolio Strategy',
-    company: 'Harbor Credit',
-  },
-  {
-    quote: 'It feels like an AI lab and a product team built a single decision system. The output was clear enough for executives and operators alike.',
-    name: 'Leah Martins',
-    title: 'Chief Operations Officer',
-    company: 'BluePeak Group',
-  },
-]
+];
 
 export const evolutionRows = [
-  { label: 'Scoring', v1: 'Point-in-time snapshot', v2: 'Full trajectory sequence' },
-  { label: 'Signals', v1: 'Single source', v2: 'Cross-source fusion' },
-  { label: 'Output', v1: 'Binary flag', v2: 'Five-stage radar + confidence' },
-  { label: 'Explainability', v1: 'Feature importances', v2: 'Full audit trail' },
-  { label: 'Validated on', v1: '2,400 entities', v2: '16,000 entities' },
-]
+  {
+    label: 'Input representation',
+    v1: 'Dated behavioural histories rendered as radar-chart images',
+    v2: 'Directly aligned tabular feature sequences',
+  },
+  {
+    label: 'Model approach',
+    v1: 'CNN image feature extraction followed by BiLSTM temporal modelling',
+    v2: 'Mamba/state-space sequence modelling with attention and SwiGLU',
+  },
+  {
+    label: 'Research focus',
+    v1: 'Temporal vision for courier churn prediction',
+    v2: 'Long-horizon churn prediction from up to 275 active days',
+  },
+  {
+    label: 'Important distinction',
+    v1: 'Research result from its reported evaluation setup',
+    v2: 'Separate manuscript and evaluation; not a like-for-like deployment comparison',
+  },
+] as const;
 
 export const workflow = [
-  { step: 'Ingest', body: 'Behavioural and transactional signals stream in from every connected source.' },
-  { step: 'Sequence', body: 'Signals are ordered into a continuous per-entity trajectory over time.' },
-  { step: 'Score', body: 'The model places each entity on the five-stage risk radar with a confidence value.' },
-  { step: 'Explain & act', body: 'Every score ships with an audit trail and a recommended next action.' },
-]
-
-export const endpoints = [
-  { path: '/v1/predict', calls: '128,402', latency: '284ms', status: 'Healthy' },
-  { path: '/v1/batch', calls: '4,910', latency: '1.2s', status: 'Healthy' },
-  { path: '/v1/explain', calls: '62,118', latency: '310ms', status: 'Degraded' },
-  { path: '/v1/webhooks', calls: '9,204', latency: '140ms', status: 'Healthy' },
-]
-
-export const dashboardBars = [62, 74, 58, 81, 69, 90, 77]
-
-export const portfolioDistribution = [
-  { stage: 'Stable', pct: 62, color: '#0F9488' },
-  { stage: 'Drift', pct: 19, color: '#3355E8' },
-  { stage: 'Squeeze', pct: 11, color: '#C9930F' },
-  { stage: 'Stress', pct: 6, color: '#E8622C' },
-  { stage: 'Distress', pct: 2, color: '#A93226' },
-]
-
-export const priorityQueue = [
-  { id: 'cust_44291', stage: 'Squeeze', color: '#C9930F' },
-  { id: 'cust_38104', stage: 'Stress', color: '#E8622C' },
-  { id: 'cust_51920', stage: 'Distress', color: '#A93226' },
-  { id: 'cust_29887', stage: 'Drift', color: '#3355E8' },
-  { id: 'cust_60213', stage: 'Squeeze', color: '#C9930F' },
-]
-
-export const impactStats = [
-  { value: '1–3%', label: 'Loan Loss Reduction', sub: 'Lower loss exposure' },
-  { value: '20–30%', label: 'Collections Efficiency', sub: 'Fewer manual reviews' },
-  { value: '5–10%', label: 'Customer Retention', sub: 'Avoidable churn prevented' },
-  { value: '15–25%', label: 'Fraud & Monitoring', sub: 'Better case prioritisation' },
-  { value: '£50k–£250k', label: 'Revenue Protection', sub: 'Annual value protected' },
-]
-
-export const partners = ['Kuflink', 'My Homecare Glasgow']
+  { step: 'Connect the evidence', body: 'Align relevant histories, identifiers, timestamps, features and outcomes for a defined task.' },
+  { step: 'Model the change', body: 'Prepare sequences and evaluate an appropriate model against an agreed baseline.' },
+  { step: 'Explain the signal', body: 'Review risk direction, influential periods and observations in their temporal context.' },
+  { step: 'Support a decision', body: 'Shape the output and human review workflow for the intended operational setting.' },
+] as const;
 
 export const publications = [
   {
     title: 'RadarSeq: A Temporal Vision Framework for User Churn Prediction via Radar Chart Sequences',
-    authors: 'Najafi, Sepanj, Jafari',
-    venue: 'ACM / Springer, 2025',
-    note: 'Validated on ~16,000 couriers, outperforming CatBoost, ChurnViT, CNN-only and CNN+MLP baselines.',
+    authors: 'Sina Najafi, M. Hadi Sepanj and Fahimeh Jafari',
+    venue: '2025 · arXiv:2506.17325',
+    note: 'Daily radar-chart images with CNN and bidirectional LSTM temporal modelling.',
+    href: 'https://arxiv.org/abs/2506.17325',
+    status: 'Research paper',
   },
   {
-    title: 'Predicting Courier Churn Using AI Language Models on Behavioral Sequences',
-    authors: 'Soham Patel',
-    venue: 'University of East London',
-    note: 'Fine-tunes a small open-source language model to read daily work history and predict 45-day churn.',
+    title: 'RadarSeq++: A Hybrid State-Space and Attention Architecture for Long-Horizon Churn Prediction in Non-Subscription Platforms',
+    authors: 'Sayem Mia, Sina Najafi and Fahimeh Jafari',
+    venue: '2026 · Research manuscript',
+    note: 'Direct feature sequences, Mamba state spaces, sliding-window attention and SwiGLU over up to 275 active days.',
+    status: 'Manuscript',
   },
-]
+  {
+    title: 'RadarSeq-LLM: Explainable LLM-Augmented Temporal Modelling for Courier Churn Prediction',
+    authors: 'Soham Patel, Sina Najafi and Fahimeh Jafari',
+    venue: '2026 · IJCACI',
+    note: 'A sequence-model signal, a small language model and two temporal explanation methods for decision support.',
+    status: 'Conference research',
+  },
+] as const;
 
-export const credibilityTags = [
-  'EPSRC · UKFin+',
-  'University of East London',
-  'University of Waterloo',
-  'IFRS 9 Aligned',
-  'Consumer Duty PRIN 2A',
-]
+export const researchResults = [
+  { study: 'Original RadarSeq', precision: '0.884', recall: '0.813', f1: '0.847', focus: 'Temporal vision' },
+  { study: 'RadarSeq++', precision: '0.884', recall: '0.956', f1: '0.918', focus: 'Longer feature histories' },
+  { study: 'RadarSeq-LLM hybrid', precision: '0.862', recall: '0.775', f1: '0.816', focus: 'Explanation and review' },
+] as const;
+
+export const recognitions = [
+  {
+    name: 'Best Paper · Intelligent Systems',
+    event: 'RadarSeq-LLM · 10th International Joint Conference on Advances in Computational Intelligence (IJCACI 2026)',
+  },
+] as const;
+
+export const collaborators = [
+  { name: 'Kuflink', relationship: 'Industry collaborator' },
+  { name: 'My Homecare', relationship: 'Industry collaborator' },
+  { name: 'University of East London', relationship: 'Academic research' },
+  { name: 'UKFin+', relationship: 'Research programme support' },
+] as const;
+
+export const pricingPlans = [
+  {
+    name: 'Private Deployment',
+    price: 'Scoped quote',
+    description: 'Bring the capability in-house, with delivery shaped around your systems.',
+    features: ['Customer-controlled environment', 'Scoped integration and handover', 'Documentation and team enablement', 'Optional ongoing maintenance'],
+    cta: 'Discuss delivery',
+    featured: false,
+  },
+  {
+    name: 'Flex API',
+    price: '£0.04',
+    description: 'Per successful standard score. Prepaid usage; £100 minimum.',
+    features: ['No managed workspace required', 'Structured scoring output', 'No charge for failed or invalid scores'],
+    cta: 'Discuss API fit',
+    featured: false,
+  },
+  {
+    name: 'Managed Monitoring',
+    price: '£750 / month',
+    description: '5,000 monitored entities included.',
+    features: ['One standard model; daily scoring', 'Dashboard and three reviewer seats', '1,000 generated summaries included', '£0.08 per additional entity / month'],
+    cta: 'Discuss monitoring',
+    featured: true,
+  },
+  {
+    name: 'Bespoke Model',
+    price: '£2,000 / month',
+    description: 'Setup from £12,500; model fit and scope are confirmed first.',
+    features: ['Custom training and initial evaluation', '10,000 monitored entities included', '2,000 generated summaries included', '£0.10 per additional entity / month'],
+    cta: 'Discuss a model',
+    featured: false,
+  },
+] as const;
 
 export const team = [
-  { name: 'Dr Fahimeh Jafari', role: 'Associate, UEL Centre of FinTech (PI)', color: '#7C5CE0' },
-  { name: 'Sina Najafi', role: 'Research Associate · Lead', color: '#FF4F87' },
-  { name: 'Dr Ayantunji Gbadamosi', role: 'Commercial Strategy · UEL', color: '#3355E8' },
-  { name: 'Aaditya Venkata Vardhana', role: 'Researcher', color: '#0F9488' },
-  { name: 'Sayem Mia', role: 'Researcher', color: '#C9930F' },
-  { name: 'Soham Chandrahasbhai', role: 'Researcher', color: '#E8622C' },
-  { name: 'Abhinandan Dyavathi', role: 'Researcher', color: '#A93226' },
-  { name: 'Shirisha Uradi', role: 'Researcher', color: '#7C5CE0' },
-]
+  { name: 'Dr Fahimeh Jafari', role: 'Co-founder & Principal Investigator', href: 'https://www.uel.ac.uk/about-uel/staff/fahimeh-jafari' },
+  { name: 'Sina Najafi', role: 'Founder & Research Associate', href: 'https://sinanajafi.co.uk' },
+  { name: 'Dr Ayantunji Gbadamosi', role: 'Co-Investigator', href: 'https://www.uel.ac.uk/about-uel/staff/ayantunji-gbadamosi' },
+  { name: 'Soham Patel', role: 'Research contributor' },
+  { name: 'Sayem Mia', role: 'Research contributor' },
+  { name: 'Shirisha Uradi', role: 'Research Assistant', href: 'https://uk.linkedin.com/in/uradi-shirisha' },
+  { name: 'M. Hadi Sepanj', role: 'Research contributor' },
+  { name: 'Abhinandan Dyavathi', role: 'Researcher · Workspace profile' },
+] as const;
 
 export const navLinks = [
-  { label: 'Overview', href: '#overview' },
+  { label: 'About', href: '#about' },
   { label: 'Innovations', href: '#innovations' },
   { label: 'Projects', href: '#projects' },
   { label: 'Evolution', href: '#evolution' },
-  { label: 'Publications', href: '#publications' },
-  { label: 'Applied Research', href: '#research' },
+  { label: 'Research', href: '#research' },
+  { label: 'Applied research', href: '#applied-research' },
+  { label: 'Architecture', href: '#architecture' },
+  { label: 'Demonstrations', href: '#demos' },
+  { label: 'Enterprise', href: '#enterprise' },
   { label: 'Team', href: '#team' },
-]
+  { label: 'Contact', href: '#contact' },
+] as const;
 
-export const footerLinks = {
-  quick: [
-    { label: 'Overview', href: '#overview' },
-    { label: 'Innovations', href: '#innovations' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Pricing', href: '#pricing' },
-  ],
-  resources: [
-    { label: 'Applied Research', href: '#research' },
-    { label: 'Publications', href: '#publications' },
-    { label: 'Testimonials', href: '#testimonials' },
-  ],
-  research: [
-    { label: 'Team', href: '#team' },
-    { label: 'Contact Us', href: '#contact' },
-    { label: 'hello@radarseq.ai', href: 'mailto:hello@radarseq.ai' },
-  ],
-}
+export const footerLinks = [
+  { label: 'About RadarSeq', href: '#about' },
+  { label: 'Research & publications', href: '#research' },
+  { label: 'Research collaborators', href: '#collaborators' },
+  { label: 'Risk demonstrations', href: '#demos' },
+  { label: 'Enterprise applications', href: '#enterprise' },
+  { label: 'Contact', href: '#contact' },
+] as const;

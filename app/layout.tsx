@@ -25,15 +25,22 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'RadarSeq — AI Risk Intelligence Platform',
+  title: {
+    default: 'RadarSeq — Temporal Risk Intelligence',
+    template: '%s | RadarSeq',
+  },
   description:
-    'RadarSeq blends academic-grade temporal AI with enterprise decisioning to detect risk before it becomes loss, churn, or regulatory exposure.',
-  metadataBase: new URL('https://radarseq.ai'),
+    'RadarSeq research connects behavioural histories over time to help teams understand changing risk, inspect evidence and shape decisions.',
+  metadataBase: new URL('https://abhinandandyavathi.github.io/radarseq12/'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'RadarSeq — AI Risk Intelligence Platform',
+    title: 'RadarSeq — Temporal Risk Intelligence',
     description:
-      'RadarSeq blends academic-grade temporal AI with enterprise decisioning to detect risk before it becomes loss, churn, or regulatory exposure.',
+      'Research into temporal modelling, changing risk and evidence-led decision workflows.',
     type: 'website',
+    url: '/',
   },
 };
 

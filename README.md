@@ -1,70 +1,30 @@
-# RadarSeq — Premium Redesign
+# RadarSeq website
 
-A ground-up visual redesign of the RadarSeq marketing site on **Next.js 15 (App Router)** +
-**TypeScript** + **Tailwind CSS**, with a live **React Three Fiber** hero scene, **Framer
-Motion** micro-interactions, **GSAP** scroll animations wired through **Lenis** smooth
-scroll, animated **CountUp** stats, and tilt-on-hover glass cards.
+The site uses Next.js 14 App Router, TypeScript, Tailwind CSS, Framer Motion and React Three Fiber. The public content is maintained in `lib/data.ts`; research metrics are presented as reported study results, and interactive visualisations use labelled synthetic data.
 
-Every section, statistic, publication, team member, project, endpoint, and contact detail
-from the original site is preserved exactly (see `lib/data.ts`) — only the UI has been
-rebuilt. All "RadarSeq++" branding has been replaced with **RadarSeq**.
-
-## Getting started
+## Local development
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Static GitHub Pages deployment
 
-## Deploying to Vercel
+The project is configured for the repository path `/radarseq12`:
 
 ```bash
-npm i -g vercel
-vercel
+npm run build
 ```
 
-Or connect the repo directly in the Vercel dashboard — zero config needed, this is a
-standard Next.js 15 App Router project.
+Next.js exports the static site to `out/`. The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys `out/` when changes reach `main` or when manually dispatched. In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**.
 
-## Project structure
+No Next.js server or API route is required. The contact form prepares a `mailto:` draft for `info@radarseq.ai`; no form data is submitted automatically.
 
-```
-app/
-  layout.tsx        Root layout, fonts, Lenis smooth-scroll provider
-  page.tsx           Assembles every section in order
-  globals.css        Design tokens, glass/gradient utilities
-components/
-  layout/            Navbar, Footer, Logo, SmoothScroll (Lenis + GSAP wiring)
-  ui/                 Reveal (scroll-in), TiltCard (hover tilt), CountUpStat
-  three/              R3F Canvas + the 3 procedural hero objects
-    objects/
-      RadarOrb.tsx        glass orb, animated rings, radar sweep
-      NeuralCrystal.tsx   refractive icosahedron crystal
-      NetworkOrb.tsx      wireframe sphere + particle network
-  sections/           One file per content section (Hero, Overview, Innovations, …)
-lib/
-  data.ts             All copy, stats, publications, team, nav links — single source of truth
-```
+## Content and research notes
 
-## The hero 3D scene
-
-The three hero objects are **procedural geometry**, not downloaded GLB assets — this keeps
-the bundle small, avoids any third-party licensing questions, and loads instantly with no
-network request. They render simultaneously behind the hero card, rotate continuously,
-float gently (via drei's `<Float>`), and the whole scene has a subtle parallax that follows
-the cursor. On `prefers-reduced-motion`, the automatic camera drift and float loops still
-render but skip large motion — the canvas itself respects the same reduced-motion query the
-rest of the site does.
-
-If you'd rather swap in real GLB models later, drop them in `public/models/` and load them
-in `components/three/objects/` with `useGLTF` from `@react-three/drei`.
-
-## Notes
-
-- This sandbox had no network access, so dependencies could not be installed or the build
-  verified end-to-end here. The code is written to current, compatible versions of every
-  package in `package.json` — run `npm install` locally or let Vercel do it on deploy.
-- Tailwind content colors, spacing, and typography scale match the original screenshots
-  (Manrope display type, Inter body, IBM Plex Mono for labels/code).
+- RadarSeq v1 uses CNN image processing of radar-chart sequences followed by BiLSTM temporal modelling.
+- RadarSeq++ processes feature sequences directly using a state-space and attention architecture.
+- The reported research studies use different evaluation setups; results are not service guarantees or a controlled like-for-like comparison.
+- Demonstration charts are synthetic examples and do not call a live model or backend.
+- Research papers and supplied team details should be updated in `lib/data.ts` when verified source material is available.

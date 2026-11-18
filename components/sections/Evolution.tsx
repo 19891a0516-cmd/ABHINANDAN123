@@ -10,16 +10,16 @@ export default function Evolution() {
         <Reveal className="text-center mb-16">
           <div className="section-label mb-4">Evolution</div>
           <h2 className="font-display font-bold text-[32px] md:text-[44px] lg:text-[52px] tracking-tight max-w-3xl mx-auto">
-            RadarSeq v1 → v2.
+            RadarSeq v1 and RadarSeq++.
           </h2>
         </Reveal>
 
         <Reveal>
           <div className="card-dark overflow-hidden rounded-card">
-            <div className="grid grid-cols-3 bg-white/[0.05] px-6 md:px-9 py-5 text-sm font-mono uppercase tracking-wider text-white/50">
+            <div className="grid grid-cols-3 bg-white/[0.05] px-6 py-5 text-xs font-mono uppercase tracking-wider text-white/55 md:px-9 md:text-sm">
               <div>Dimension</div>
-              <div>v1</div>
-              <div>v2</div>
+              <div>RadarSeq v1</div>
+              <div>RadarSeq++</div>
             </div>
             {evolutionRows.map((row, i) => (
               <div
@@ -29,8 +29,8 @@ export default function Evolution() {
                 }`}
               >
                 <div className="font-display font-bold">{row.label}</div>
-                <div className="text-white/45">{row.v1}</div>
-                <div className="text-pink font-semibold">{row.v2}</div>
+                <div className="pr-3 text-white/60">{row.v1}</div>
+                <div className="text-pink">{row.v2}</div>
               </div>
             ))}
           </div>

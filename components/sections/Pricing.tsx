@@ -9,13 +9,16 @@ export default function Pricing() {
     <section id="pricing" className="py-24 px-6 lg:px-10 bg-bg">
       <div className="max-w-container mx-auto">
         <Reveal className="text-center mb-16">
-          <div className="section-label mb-4">Pricing</div>
+          <div className="section-label mb-4">Delivery & indicative pricing</div>
           <h2 className="font-display font-extrabold text-[32px] md:text-[44px] lg:text-[52px] tracking-tight max-w-3xl mx-auto">
-            Flexible commercial models for teams moving from <span className="italic-pink">research to operations</span>.
+            Choose a delivery route that fits your workflow.
           </h2>
+          <p className="mx-auto mt-5 max-w-prose text-gray">
+            Indicative launch prices for discussion. Scope and model fit are confirmed before purchase; figures exclude applicable taxes.
+          </p>
         </Reveal>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid gap-6 md:grid-cols-2 2xl:grid-cols-4">
           {pricingPlans.map((plan, index) => (
             <Reveal key={plan.name} delay={index * 0.08}>
               <article
@@ -28,11 +31,6 @@ export default function Pricing() {
                     <div className="font-mono text-xs uppercase tracking-[0.14em] text-ink/50">{plan.name}</div>
                     <div className="mt-3 font-display text-4xl font-extrabold tracking-tight">{plan.price}</div>
                   </div>
-                  {plan.featured && (
-                    <span className="rounded-full bg-gradient-to-r from-pink to-purple px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white">
-                      Most popular
-                    </span>
-                  )}
                 </div>
 
                 <p className="text-gray text-[15px] leading-relaxed mb-6">{plan.description}</p>

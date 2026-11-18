@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { stages } from '@/lib/data';
 import SceneErrorBoundary from '@/components/three/SceneErrorBoundary';
 
@@ -15,30 +14,20 @@ const HeroScene = dynamic(() => import('@/components/three/HeroScene'), {
 export default function Hero() {
   const [active, setActive] = useState(0);
 
-  useEffect(() => {
-    const id = setInterval(() => setActive((v) => (v + 1) % stages.length), 2800);
-    return () => clearInterval(id);
-  }, []);
-
   return (
-    <section id="top" className="relative pt-20 lg:pt-28 pb-32 px-6 lg:px-10 bg-bg overflow-hidden">
-      {/* Premium gradient backgrounds */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-pink/30 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-0 w-80 h-80 bg-gradient-to-tr from-accent-purple/20 via-pink/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute top-1/2 right-0 w-72 h-72 bg-gradient-to-l from-accent-purple/25 to-transparent rounded-full blur-3xl" />
-      </div>
-
+    <section id="home" className="relative overflow-hidden bg-white px-6 pb-24 pt-20 dark:bg-[#0A0A0A] lg:px-10 lg:pt-28">
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink/10 to-purple/10 border border-pink/20 mb-8"
+          className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-[#DED8ED] bg-[#F8F5FC] px-4 py-2 mb-8 dark:border-[#393044] dark:bg-[#15121D]"
         >
           <div className="w-2 h-2 rounded-full bg-gradient-to-r from-pink to-purple" />
-          <span className="text-sm font-semibold text-ink/80">Temporal AI for enterprise risk intelligence</span>
+          <span className="text-sm font-semibold text-[#6D35D9] dark:text-[#C4A7FF]">
+            Explainable temporal AI
+          </span>
         </motion.div>
 
         {/* Main headline */}
@@ -46,9 +35,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="font-display font-extrabold tracking-[-0.04em] leading-[1.08] text-[52px] sm:text-[64px] lg:text-[76px] max-w-4xl mb-6 text-ink"
+          className="font-display max-w-4xl mb-6 font-extrabold tracking-[-0.04em] leading-[0.99] text-[clamp(3rem,7.2vw,6rem)] text-[#101A3A] dark:text-[#F5F3FA]"
         >
-          Detect risk signals 2x faster with temporal AI.
+          See the change.
+          <br />
+          <span className="bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(105deg, #E83E9F, #6D35D9)' }}>
+            Shape what happens next.
+          </span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -56,9 +49,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-lg lg:text-xl text-ink/65 max-w-2xl mb-10 leading-relaxed font-medium"
+          className="max-w-2xl mb-8 text-lg leading-relaxed font-medium text-[#697386] sm:text-xl dark:text-[#B4B7C5]"
         >
-          RadarSeq fuses temporal AI, portfolio analytics, and audit-first explainability into one decision layer. See what others miss, act with confidence.
+          A change in behaviour rarely happens in isolation. RadarSeq connects the dots across your data to show where risk is building, what has changed and which cases deserve attention.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -66,13 +59,24 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 items-start mb-14"
+          className="mb-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
         >
-          <a href="#contact" className="btn-pill btn-primary focus-ring inline-flex items-center gap-2 group">
-            Book a strategic briefing
-            <ArrowRight size={16} strokeWidth={2.5} className="group-hover:translate-x-1 transition-transform" />
+          <a
+            href="#contact"
+            className="focus-ring group inline-flex min-h-[64px] w-full max-w-full items-center justify-center gap-3 rounded-full px-7 py-4 text-center text-base font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-auto sm:px-9 sm:text-lg"
+            style={{
+              backgroundImage: 'linear-gradient(105deg, #E83E9F, #6D35D9)',
+              boxShadow: '0 10px 28px rgba(180, 57, 174, 0.25)',
+            }}
+          >
+            Discuss your use case <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </a>
-          <p className="text-sm text-ink/50 pt-3 font-medium">No credit card required · 15 min consultation</p>
+          <a href="#demos" className="rounded-full px-4 py-3 text-sm font-bold text-ink/75 underline decoration-pink/60 underline-offset-4 transition-colors hover:text-pink focus-ring">
+            Explore the demonstration
+          </a>
+          <p className="text-sm font-medium text-[#697386] dark:text-[#B4B7C5]">
+            Your data. A clear use case. A practical route forward.
+          </p>
         </motion.div>
 
         {/* Risk Stages - Interactive Buttons */}
@@ -82,14 +86,15 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-16 pb-14 border-b border-border/40"
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-ink/50 mb-4">Risk Stages:</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-ink/50 mb-4">Illustrative risk stages</p>
           <div className="flex flex-wrap gap-2.5">
             {stages.map((s, i) => (
               <motion.button
                 key={s.name}
                 onClick={() => setActive(i)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                aria-pressed={active === i}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
                 className="px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 focus-ring border backdrop-blur-sm"
                 style={
                   active === i
@@ -110,6 +115,9 @@ export default function Hero() {
               </motion.button>
             ))}
           </div>
+          <p className="mt-4 max-w-xl text-sm text-ink/60" aria-live="polite">
+            {stages[active].name}: {stages[active].description}
+          </p>
         </motion.div>
 
         {/* Trust Credentials */}
@@ -120,19 +128,19 @@ export default function Hero() {
           className="grid sm:grid-cols-3 gap-8"
         >
           <div className="flex flex-col">
-            <div className="text-xs font-mono uppercase tracking-widest text-pink mb-2">Research Credibility</div>
-            <div className="font-display font-bold text-ink text-lg">ACM/Springer 2025</div>
-            <p className="text-sm text-ink/50 mt-1">Academic-grade AI model</p>
+            <div className="text-xs font-mono uppercase tracking-widest text-pink mb-2">RadarSeq v1</div>
+            <div className="font-display font-bold text-ink text-lg">CNN + BiLSTM</div>
+            <p className="text-sm text-ink/50 mt-1">Radar-chart image sequences</p>
           </div>
           <div className="flex flex-col">
-            <div className="text-xs font-mono uppercase tracking-widest text-purple mb-2">Enterprise Ready</div>
-            <div className="font-display font-bold text-ink text-lg">99.9% Uptime SLA</div>
-            <p className="text-sm text-ink/50 mt-1">Scalable deployment model</p>
+            <div className="text-xs font-mono uppercase tracking-widest text-purple mb-2">RadarSeq++</div>
+            <div className="font-display font-bold text-ink text-lg">Direct feature sequences</div>
+            <p className="text-sm text-ink/50 mt-1">State-space and attention research</p>
           </div>
           <div className="flex flex-col">
-            <div className="text-xs font-mono uppercase tracking-widest text-accent-teal mb-2">Transparency</div>
-            <div className="font-display font-bold text-ink text-lg">Full Audit Trail</div>
-            <p className="text-sm text-ink/50 mt-1">Explainable by design</p>
+            <div className="text-xs font-mono uppercase tracking-widest text-accent-teal mb-2">Risk journey</div>
+            <div className="font-display font-bold text-ink text-lg">Five illustrative stages</div>
+            <p className="text-sm text-ink/50 mt-1">Human review remains central</p>
           </div>
         </motion.div>
       </div>
@@ -145,29 +153,28 @@ export default function Hero() {
         viewport={{ once: true }}
         className="mt-20 lg:mt-28 relative max-w-6xl mx-auto"
       >
-        <div className="relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-b from-ink/60 via-ink/40 to-ink/20 border border-border/60 shadow-2xl">
+        <div className="relative h-[500px] overflow-hidden rounded-3xl border border-border/60 bg-[radial-gradient(ellipse_at_55%_45%,rgba(91,75,255,0.24),transparent_58%),linear-gradient(145deg,#101A3A,#090B14)] shadow-2xl">
+          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-[#090B14]/80 via-[#101A3A]/45 to-[#090B14]/85" />
+
           {/* Background gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-pink/5 via-purple/5 to-transparent pointer-events-none z-0" />
+          <div className="absolute inset-0 z-[2] bg-gradient-to-br from-pink/10 via-purple/5 to-transparent pointer-events-none" />
           
           {/* 3D Scene Container */}
-          <div className="absolute inset-0 w-full h-full">
+          <div className="absolute inset-0 z-10 w-full h-full">
             <SceneErrorBoundary fallback={
-              <div className="absolute inset-0 bg-gradient-to-b from-pink/10 via-purple/10 to-transparent flex flex-col items-center justify-center z-10 backdrop-blur-sm">
-                <div className="text-center">
-                  <div className="font-display text-2xl font-bold text-ink mb-2">⚡ LIVE RISK RADAR</div>
-                  <div className="text-sm text-ink/60">3D Scene Loading...</div>
-                </div>
-              </div>
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-transparent via-[#101A3A]/10 to-[#090B14]/25" />
             }>
               <HeroScene />
             </SceneErrorBoundary>
           </div>
 
-          {/* Corner label */}
-          <div className="absolute top-4 left-6 text-xs font-mono font-bold text-ink/60 tracking-wider pointer-events-none z-20 flex items-center gap-2">
+          <div className="pointer-events-none absolute left-6 top-4 z-20 flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-white/75">
             <div className="w-2 h-2 rounded-full bg-pink animate-pulse" />
-            LIVE RISK RADAR
+            CONCEPTUAL SIGNAL OBSERVATORY
           </div>
+          <p className="pointer-events-none absolute bottom-4 right-5 z-20 max-w-xs text-right text-xs text-white/65">
+            Conceptual visualisation. No live model or customer data.
+          </p>
         </div>
 
         {/* Stats below scene */}
@@ -179,19 +186,19 @@ export default function Hero() {
           className="mt-10 grid sm:grid-cols-3 gap-6"
         >
           <div className="bg-gradient-to-br from-pink/5 to-transparent border border-border/40 rounded-xl p-6">
-            <div className="text-2xl font-display font-bold text-pink mb-2">2x</div>
-            <div className="text-sm font-semibold text-ink">Risk Detection Speed</div>
-            <p className="text-xs text-ink/50 mt-2">Faster than snapshot-based models</p>
+            <div className="text-2xl font-display font-bold text-pink mb-2">01</div>
+            <div className="text-sm font-semibold text-ink">Connect histories</div>
+            <p className="text-xs text-ink/50 mt-2">Relevant activity and operational records</p>
           </div>
           <div className="bg-gradient-to-br from-purple/5 to-transparent border border-border/40 rounded-xl p-6">
-            <div className="text-2xl font-display font-bold text-purple mb-2">360°</div>
-            <div className="text-sm font-semibold text-ink">Portfolio Visibility</div>
-            <p className="text-xs text-ink/50 mt-2">Multi-source signal fusion</p>
+            <div className="text-2xl font-display font-bold text-purple mb-2">02</div>
+            <div className="text-sm font-semibold text-ink">Study trajectories</div>
+            <p className="text-xs text-ink/50 mt-2">Evaluate temporal patterns against a baseline</p>
           </div>
           <div className="bg-gradient-to-br from-accent-teal/5 to-transparent border border-border/40 rounded-xl p-6">
-            <div className="text-2xl font-display font-bold text-accent-teal mb-2">95%+</div>
-            <div className="text-sm font-semibold text-ink">Decision Clarity</div>
-            <p className="text-xs text-ink/50 mt-2">Audit-first explainability</p>
+            <div className="text-2xl font-display font-bold text-accent-teal mb-2">03</div>
+            <div className="text-sm font-semibold text-ink">Review evidence</div>
+            <p className="text-xs text-ink/50 mt-2">Support human decisions with context</p>
           </div>
         </motion.div>
       </motion.div>

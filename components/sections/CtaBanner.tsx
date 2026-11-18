@@ -26,7 +26,7 @@ export default function CtaBanner() {
           </h2>
 
           <p className="text-lg lg:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
-            Transform raw data into actionable intelligence. See what others miss, when it matters most. Built for risk leaders who can't afford to guess.
+            Transform raw data into actionable intelligence. See what others miss, when it matters most. Built for risk leaders who can&apos;t afford to guess.
           </p>
 
           <motion.a

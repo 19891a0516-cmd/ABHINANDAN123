@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useRef } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import RadarOrb from './objects/RadarOrb';
@@ -23,12 +23,37 @@ function ParallaxRig() {
 }
 
 export default function HeroScene() {
+  const [canvasEnabled, setCanvasEnabled] = useState(false);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const smallScreen = window.matchMedia('(max-width: 640px)');
+    const lowPower = navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4;
+    const update = () => setCanvasEnabled(!reducedMotion.matches && !smallScreen.matches && !lowPower);
+
+    update();
+    reducedMotion.addEventListener('change', update);
+    smallScreen.addEventListener('change', update);
+    return () => {
+      reducedMotion.removeEventListener('change', update);
+      smallScreen.removeEventListener('change', update);
+    };
+  }, []);
+
+  if (!canvasEnabled) {
+    return (
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,79,135,0.2),transparent_18%),radial-gradient(circle_at_55%_45%,rgba(91,75,255,0.24),transparent_44%)]"
+      />
+    );
+  }
+
   return (
     <Canvas
-      dpr={[1, 1.8]}
+      dpr={[1, 1.35]}
       camera={{ position: [0, 0, 6.4], fov: 42 }}
       gl={{ antialias: true, alpha: true }}
-      shadows
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.5} />

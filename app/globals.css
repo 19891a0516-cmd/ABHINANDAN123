@@ -36,6 +36,23 @@ section[id] {
   section[id] {
     scroll-margin-top: 132px;
   }
+
+  .skip-link {
+    position: fixed;
+    z-index: 100;
+    top: 0.75rem;
+    left: 0.75rem;
+    transform: translateY(-160%);
+    border-radius: 0.75rem;
+    background: #101a3a;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
 }
 
 html.lenis {

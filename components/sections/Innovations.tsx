@@ -11,11 +11,11 @@ export default function Innovations() {
         <Reveal className="text-center mb-16">
           <div className="section-label mb-4">Innovations</div>
           <h2 className="font-display font-bold text-[32px] md:text-[44px] lg:text-[52px] tracking-tight max-w-3xl mx-auto">
-            Three ideas most risk models skip.
+            From connected evidence to useful decisions.
           </h2>
         </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {innovations.map((it, i) => (
             <Reveal key={it.n} delay={i * 0.1}>
               <div className="card-dark gradient-border p-9 h-full">
