@@ -177,7 +177,7 @@ export default function AbhinandanProfile() {
       <header className="sticky top-0 z-40 border-b border-border/70 bg-bg/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-container items-center justify-between gap-4 px-6 lg:px-10">
           <Link href="/" aria-label="RadarSeq home" className="shrink-0 rounded-md focus-ring">
-            <Logo size={32} />
+            <Logo compact priority />
           </Link>
           <nav aria-label="Profile sections" className="hidden items-center gap-5 text-sm font-semibold text-ink/65 lg:flex">
             <a className="transition-colors hover:text-pink" href="#experience">Experience</a>
@@ -189,7 +189,7 @@ export default function AbhinandanProfile() {
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <button
               type="button"
-              aria-label="Toggle dark mode"
+              aria-label="Toggle warm background theme"
               onClick={toggleTheme}
               className="flex h-10 w-10 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-pink/5 hover:text-pink focus-ring"
             >
@@ -209,9 +209,9 @@ export default function AbhinandanProfile() {
           <div className="mx-auto grid max-w-container items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
             <Reveal>
               <div className="card overflow-hidden rounded-card border border-border/70 p-4 shadow-card">
-                <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[18px] bg-[#F8F5FC] dark:bg-[#15121D]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(232,62,159,0.13),transparent_38%),radial-gradient(circle_at_85%_80%,rgba(109,53,217,0.15),transparent_42%)]" />
-                  <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-[#E83E9F] to-[#6D35D9] font-display text-5xl font-extrabold text-white shadow-glow sm:h-48 sm:w-48">
+                <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[18px] bg-surface">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(179,138,92,0.18),transparent_38%),radial-gradient(circle_at_85%_80%,rgba(141,104,70,0.12),transparent_42%)]" />
+                  <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-[#B38A5C] to-[#8D6846] font-display text-5xl font-extrabold text-white shadow-glow sm:h-48 sm:w-48">
                     AD
                   </div>
                   <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-border/70 bg-bg/90 px-3 py-2 text-xs font-semibold text-ink/75 shadow-soft">
@@ -223,11 +223,11 @@ export default function AbhinandanProfile() {
             </Reveal>
 
             <Reveal delay={0.08}>
-              <div className="mb-5 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-[#DED8ED] bg-[#F8F5FC] px-4 py-2 text-xs font-bold text-[#6D35D9] dark:border-[#393044] dark:bg-[#15121D] dark:text-[#C4A7FF] sm:text-sm">
-                <span className="h-2 w-2 rounded-full bg-gradient-to-r from-[#E83E9F] to-[#6D35D9]" />
+              <div className="mb-5 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-xs font-bold text-pink sm:text-sm">
+                <span className="h-2 w-2 rounded-full bg-gradient-to-r from-[#B38A5C] to-[#8D6846]" />
                 Software Engineering • AI Research • Machine Learning
               </div>
-              <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-[-0.04em] text-[#101A3A] dark:text-[#F5F3FA] sm:text-5xl lg:text-6xl">
+              <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-[-0.04em] text-ink sm:text-5xl lg:text-6xl">
                 Abhinandan <span className="italic-pink">Dyavathi</span>
               </h1>
               <p className="mt-5 font-display text-xl font-bold text-ink sm:text-2xl">
@@ -251,7 +251,7 @@ export default function AbhinandanProfile() {
           </div>
         </section>
 
-        <section id="summary" className="scroll-mt-24 bg-[#F8F5FC]/70 px-6 py-16 dark:bg-[#111018] sm:py-20 lg:px-10">
+        <section id="summary" className="scroll-mt-24 bg-secondary/70 px-6 py-16 sm:py-20 lg:px-10">
           <div className="mx-auto max-w-container">
             <SectionHeading eyebrow="Background" title="Professional Summary" />
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
@@ -287,7 +287,7 @@ export default function AbhinandanProfile() {
               {experience.map((position, index) => (
                 <Reveal key={position.role} delay={index * 0.08}>
                   <article className="card relative mb-8 rounded-card p-6 last:mb-0 sm:p-9">
-                    <span className="absolute -left-[36px] top-8 h-4 w-4 rounded-full border-[3px] border-bg bg-gradient-to-br from-[#E83E9F] to-[#6D35D9] shadow-glow sm:-left-[49px]" />
+                    <span className="absolute -left-[36px] top-8 h-4 w-4 rounded-full border-[3px] border-bg bg-gradient-to-br from-[#B38A5C] to-[#8D6846] shadow-glow sm:-left-[49px]" />
                     <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                       <div>
                         <p className="section-label !text-xs">{position.role}</p>
@@ -317,7 +317,7 @@ export default function AbhinandanProfile() {
           </div>
         </section>
 
-        <section id="expertise" className="scroll-mt-24 bg-[#F8F5FC]/70 px-6 py-16 dark:bg-[#111018] sm:py-20 lg:px-10">
+        <section id="expertise" className="scroll-mt-24 bg-secondary/70 px-6 py-16 sm:py-20 lg:px-10">
           <div className="mx-auto max-w-container">
             <SectionHeading eyebrow="Capabilities" title="Technical Expertise" />
             <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
@@ -325,7 +325,7 @@ export default function AbhinandanProfile() {
                 <Reveal key={title} delay={(index % 3) * 0.05}>
                   <article className="card group h-full rounded-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
                     <div className="mb-5 flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pink/10 text-pink transition-colors group-hover:bg-gradient-to-br group-hover:from-[#E83E9F] group-hover:to-[#6D35D9] group-hover:text-white">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pink/10 text-pink transition-colors group-hover:bg-pink group-hover:text-white">
                         <Icon size={19} />
                       </span>
                       <h3 className="font-display font-bold">{title}</h3>
@@ -368,7 +368,7 @@ export default function AbhinandanProfile() {
           </div>
         </section>
 
-        <section id="education" className="scroll-mt-24 bg-[#F8F5FC]/70 px-6 py-16 dark:bg-[#111018] sm:py-20 lg:px-10">
+        <section id="education" className="scroll-mt-24 bg-secondary/70 px-6 py-16 sm:py-20 lg:px-10">
           <div className="mx-auto max-w-container">
             <SectionHeading eyebrow="Academic Background" title="Education" />
             <div className="relative mx-auto mt-10 max-w-4xl border-l border-border pl-7 sm:pl-10">
@@ -425,7 +425,7 @@ export default function AbhinandanProfile() {
           </div>
         </section>
 
-        <section id="career-focus" className="scroll-mt-24 bg-[#F8F5FC]/70 px-6 py-16 dark:bg-[#111018] sm:py-20 lg:px-10">
+        <section id="career-focus" className="scroll-mt-24 bg-secondary/70 px-6 py-16 sm:py-20 lg:px-10">
           <div className="mx-auto max-w-container">
             <SectionHeading eyebrow="Next Chapter" title="Career Focus" />
             <p className="mx-auto mt-5 max-w-2xl text-center leading-relaxed text-gray">
@@ -464,7 +464,7 @@ export default function AbhinandanProfile() {
               <ul className="mt-7 grid gap-3 sm:grid-cols-2">
                 {additionalInformation.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-gray">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-[#E83E9F] to-[#6D35D9]" />
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-[#B38A5C] to-[#8D6846]" />
                     {item}
                   </li>
                 ))}
@@ -475,25 +475,25 @@ export default function AbhinandanProfile() {
 
         <section id="contact" className="scroll-mt-24 px-6 pb-16 pt-8 lg:px-10">
           <Reveal className="mx-auto max-w-container">
-            <div className="relative overflow-hidden rounded-card bg-dark px-7 py-10 text-white sm:px-12 sm:py-14">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_90%_10%,rgba(109,53,217,0.32),transparent_35%),radial-gradient(circle_at_10%_90%,rgba(232,62,159,0.22),transparent_32%)]" />
+            <div className="relative overflow-hidden rounded-card border border-border bg-alternative px-7 py-10 text-ink sm:px-12 sm:py-14">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_90%_10%,rgba(179,138,92,0.16),transparent_35%),radial-gradient(circle_at_10%_90%,rgba(141,104,70,0.12),transparent_32%)]" />
               <div className="relative grid gap-9 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
                   <p className="section-label !text-xs">Get in touch</p>
                   <h2 className="mt-3 font-display text-3xl font-extrabold sm:text-4xl">Let&apos;s build something intelligent.</h2>
-                  <p className="mt-4 max-w-2xl leading-relaxed text-white/65">
+                  <p className="mt-4 max-w-2xl leading-relaxed text-gray">
                     Interested in software engineering, AI research, or collaboration? Get in touch.
                   </p>
-                  <div className="mt-7 flex flex-col gap-3 text-sm text-white/75 sm:flex-row sm:flex-wrap sm:gap-x-6">
+                  <div className="mt-7 flex flex-col gap-3 text-sm text-gray sm:flex-row sm:flex-wrap sm:gap-x-6">
                     <span className="inline-flex items-center gap-2"><MapPin size={16} className="text-pink" />London, United Kingdom</span>
-                    <a className="inline-flex items-center gap-2 transition-colors hover:text-white" href="tel:+447887187489"><Phone size={16} className="text-pink" />+44 7887 187489</a>
-                    <a className="inline-flex items-center gap-2 transition-colors hover:text-white" href="mailto:dyavathiabhinandan45@gmail.com"><Mail size={16} className="text-pink" />dyavathiabhinandan45@gmail.com</a>
+                    <a className="inline-flex items-center gap-2 transition-colors hover:text-ink" href="tel:+447887187489"><Phone size={16} className="text-pink" />+44 7887 187489</a>
+                    <a className="inline-flex items-center gap-2 transition-colors hover:text-ink" href="mailto:dyavathiabhinandan45@gmail.com"><Mail size={16} className="text-pink" />dyavathiabhinandan45@gmail.com</a>
                   </div>
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
                   <a href="mailto:dyavathiabhinandan45@gmail.com" className="btn-pill btn-primary focus-ring w-full sm:w-auto">Email Me</a>
-                  <UnavailableProfileLink label="LinkedIn" dark />
-                  <UnavailableProfileLink label="GitHub" dark />
+                  <UnavailableProfileLink label="LinkedIn" />
+                  <UnavailableProfileLink label="GitHub" />
                 </div>
               </div>
             </div>
@@ -533,16 +533,14 @@ function TagList({ tags, className = '' }: { tags: string[]; className?: string 
   );
 }
 
-function UnavailableProfileLink({ label, dark = false }: { label: string; dark?: boolean }) {
+function UnavailableProfileLink({ label }: { label: string }) {
   return (
     <button
       type="button"
       disabled
       aria-label={`${label} profile link not provided`}
       title="Profile link not provided"
-      className={`btn-pill focus-ring w-full cursor-not-allowed border opacity-55 sm:w-auto ${
-        dark ? 'border-white/20 bg-white/5 text-white' : 'border-border bg-bg text-ink'
-      }`}
+      className="btn-pill focus-ring w-full cursor-not-allowed border border-border bg-surface text-ink opacity-55 sm:w-auto"
     >
       {label}
     </button>

@@ -45,17 +45,17 @@ export default function Research() {
         </div>
 
         <Reveal>
-          <div className="rounded-card bg-dark p-7 text-white md:p-10">
+          <div className="rounded-card border border-border bg-alternative p-7 text-ink md:p-10">
             <h3 className="font-display text-2xl font-bold">Applied research status</h3>
-            <p className="mt-3 max-w-prose leading-relaxed text-white/65">
+            <p className="mt-3 max-w-prose leading-relaxed text-gray">
               Research validation, implementation work and active research are distinct stages. No result shown
               here implies a live deployment, production performance or an automated decision.
             </p>
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {projects.map((project) => (
-                <li key={project.slug} className="flex items-start justify-between gap-4 rounded-xl border border-white/10 p-4">
+                <li key={project.slug} className="flex items-start justify-between gap-4 rounded-xl border border-border bg-surface p-4">
                   <span className="text-sm font-semibold">{project.title}</span>
-                  <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-right text-xs text-white/75">
+                  <span className="shrink-0 rounded-full bg-secondary px-2.5 py-1 text-right text-xs text-gray">
                     {project.status}
                   </span>
                 </li>

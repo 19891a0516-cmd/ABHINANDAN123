@@ -8,7 +8,7 @@ export default function Dashboard() {
   const max = Math.max(...sampleObservations);
 
   return (
-    <section id="dashboard-example" className="bg-dark px-6 py-24 text-white lg:px-10">
+    <section id="dashboard-example" className="light-surface bg-dark px-6 py-24 text-white lg:px-10">
       <div className="mx-auto max-w-container">
         <Reveal className="mb-12 text-center">
           <div className="section-label mb-4">Demonstration · synthetic sample</div>

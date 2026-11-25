@@ -6,8 +6,7 @@ import Reveal from '@/components/ui/Reveal';
 
 export default function CtaBanner() {
   return (
-    <section className="py-32 px-6 lg:px-10 bg-ink text-white relative overflow-hidden">
-      {/* Minimal gradient background */}
+    <section className="relative overflow-hidden bg-alternative px-6 py-32 text-ink lg:px-10">
       <div className="pointer-events-none absolute inset-0 opacity-20">
         <div className="absolute top-0 right-1/3 w-96 h-96 bg-pink/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-accent-purple/20 rounded-full blur-3xl" />
@@ -25,7 +24,7 @@ export default function CtaBanner() {
             Detect risk signals early.<br />Act with certainty.
           </h2>
 
-          <p className="text-lg lg:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
+          <p className="text-lg lg:text-xl text-ink/70 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
             Transform raw data into actionable intelligence. See what others miss, when it matters most. Built for risk leaders who can&apos;t afford to guess.
           </p>
 
@@ -35,7 +34,7 @@ export default function CtaBanner() {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
             href="#contact"
-            className="btn-pill !bg-white !text-ink hover:!bg-white/90 focus-ring inline-flex items-center gap-2"
+            className="btn-pill btn-primary focus-ring inline-flex items-center gap-2"
           >
             Get a strategic briefing
             <ArrowRight size={16} strokeWidth={2.5} />

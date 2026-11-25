@@ -5,7 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-const STAGE_COLORS = ['#00C2A8', '#3D5AFE', '#D4A017', '#FF4F87', '#5B4BFF'];
+const STAGE_COLORS = ['#887969', '#A98258', '#B38A5C', '#8D6846', '#66594D'];
 
 /**
  * "Data Network Orb" — a wireframe sphere seeded with coloured node points
@@ -61,14 +61,14 @@ export default function NetworkOrb({ position = [0, 0, 0] as [number, number, nu
       <group ref={group} position={position}>
         <mesh ref={pulse}>
           <sphereGeometry args={[1.05, 24, 24]} />
-          <meshBasicMaterial color="#0A0A0A" wireframe transparent opacity={0.12} />
+          <meshBasicMaterial color="#D9CBB8" wireframe transparent opacity={0.55} />
         </mesh>
 
         <lineSegments>
           <bufferGeometry>
             <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
           </bufferGeometry>
-          <lineBasicMaterial color="#ffffff" transparent opacity={0.22} />
+          <lineBasicMaterial color="#A98258" transparent opacity={0.32} />
         </lineSegments>
 
         {nodePositions.map((v, i) => (
@@ -78,7 +78,7 @@ export default function NetworkOrb({ position = [0, 0, 0] as [number, number, nu
           </mesh>
         ))}
 
-        <pointLight color="#00C2A8" intensity={3} distance={4} decay={2} />
+        <pointLight color="#B38A5C" intensity={3} distance={4} decay={2} />
       </group>
     </Float>
   );

@@ -11,7 +11,7 @@ import * as THREE from 'three';
  */
 export default function RadarOrb({
   position = [0, 0, 0],
-  color = '#FF4F87',
+  color = '#B38A5C',
 }: {
   position?: [number, number, number];
   color?: THREE.ColorRepresentation;
@@ -59,17 +59,17 @@ export default function RadarOrb({
         {/* rings */}
         <mesh ref={ring1} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[1.15, 0.008, 8, 96]} />
-          <meshBasicMaterial color="#ffffff" transparent opacity={0.35} />
+          <meshBasicMaterial color="#FFFDF8" transparent opacity={0.65} />
         </mesh>
         <mesh ref={ring2} rotation={[Math.PI / 2.4, 0.4, 0]}>
           <torusGeometry args={[1.4, 0.006, 8, 96]} />
-          <meshBasicMaterial color="#5B4BFF" transparent opacity={0.3} />
+          <meshBasicMaterial color="#A98258" transparent opacity={0.4} />
         </mesh>
 
         {/* radar sweep wedge */}
         <mesh ref={sweep} rotation={[-Math.PI / 2, 0, 0]}>
           <shapeGeometry args={[wedge]} />
-          <meshBasicMaterial color="#FF4F87" transparent opacity={0.22} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#B38A5C" transparent opacity={0.28} side={THREE.DoubleSide} />
         </mesh>
 
         <pointLight color={color} intensity={4} distance={4} decay={2} />

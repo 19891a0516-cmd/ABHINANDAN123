@@ -45,7 +45,7 @@ function StageTrajectory({ activeStageIndex }: { activeStageIndex: number }) {
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
-        <lineBasicMaterial color="#E6E9FF" transparent opacity={0.42} />
+        <lineBasicMaterial color="#D9CBB8" transparent opacity={0.55} />
       </lineSegments>
       {stages.map((stage, index) => (
         <group key={stage.name} position={points[index]}>
@@ -106,7 +106,7 @@ export default function HeroScene({ activeStageIndex }: { activeStageIndex: numb
     return (
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,79,135,0.2),transparent_18%),radial-gradient(circle_at_55%_45%,rgba(91,75,255,0.24),transparent_44%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(179,138,92,0.2),transparent_18%),radial-gradient(circle_at_55%_45%,rgba(141,104,70,0.16),transparent_44%)]"
       />
     );
   }
@@ -119,11 +119,11 @@ export default function HeroScene({ activeStageIndex }: { activeStageIndex: numb
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.5} />
-        <directionalLight position={[3, 4, 5]} intensity={0.6} color="#ffffff" castShadow />
-        <pointLight position={[-3, -2, 2]} color="#5B4BFF" intensity={2} />
-        <pointLight position={[3, 2, -2]} color="#FF4F87" intensity={2} />
+        <directionalLight position={[3, 4, 5]} intensity={0.8} color="#FFFDF8" castShadow />
+        <pointLight position={[-3, -2, 2]} color="#B38A5C" intensity={2} />
+        <pointLight position={[3, 2, -2]} color="#8D6846" intensity={2} />
 
-        <fog attach="fog" args={['#0A0A0A', 8, 14]} />
+        <fog attach="fog" args={['#EDE3D3', 8, 14]} />
 
         <RadarOrb position={[-2.1, 0.4, 0]} color={stages[activeStageIndex].color} />
         <NeuralCrystal position={[2.1, -0.3, -0.6]} />

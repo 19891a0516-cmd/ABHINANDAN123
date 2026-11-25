@@ -28,7 +28,7 @@ export default function Projects() {
                   <div className="flex items-start justify-between gap-4 mb-5">
                     <div
                       className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                      style={{ background: `${['#0F9488', '#C9930F', '#3355E8', '#7C5CE0'][i]}18`, color: ['#0F9488', '#C9930F', '#3355E8', '#7C5CE0'][i] }}
+                      style={{ background: 'rgb(var(--color-muted))', color: 'rgb(var(--color-ink))' }}
                     >
                       <Icon size={22} strokeWidth={1.8} />
                     </div>

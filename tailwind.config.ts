@@ -7,24 +7,41 @@ const config: Config = {
     extend: {
       colors: {
         bg: 'rgb(var(--color-bg) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+        alternative: 'rgb(var(--color-alt) / <alpha-value>)',
         ink: 'rgb(var(--color-ink) / <alpha-value>)',
+        heading: 'rgb(var(--color-heading) / <alpha-value>)',
+        body: 'rgb(var(--color-body) / <alpha-value>)',
         gray: 'rgb(var(--color-gray) / <alpha-value>)',
+        mutedText: 'rgb(var(--color-muted-text) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        button: {
+          DEFAULT: 'rgb(var(--color-button) / <alpha-value>)',
+          text: 'rgb(var(--color-button-text) / <alpha-value>)',
+        },
+        hover: 'rgb(var(--color-hover) / <alpha-value>)',
         border: 'rgb(var(--color-border) / <alpha-value>)',
-        dark: '#0A0A0A',
+        dark: 'rgb(var(--color-alt) / <alpha-value>)',
         pink: {
-          DEFAULT: '#FF4F87',
-          soft: '#FF7BA6',
+          DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
+          soft: 'rgb(var(--color-primary) / <alpha-value>)',
+        },
+        purple: {
+          DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+          soft: 'rgb(var(--color-accent) / <alpha-value>)',
         },
         accent: {
-          blue: '#3D5AFE',
-          purple: '#5B4BFF',
-          teal: '#00C2A8',
-          gold: '#D4A017',
+          blue: '#8D6846',
+          purple: '#B38A5C',
+          teal: '#887969',
+          gold: '#A98258',
         },
       },
       fontFamily: {
-        display: ['var(--font-display)', 'Manrope', 'Inter', 'sans-serif'],
-        body: ['var(--font-body)', 'Inter', 'Plus Jakarta Sans', 'sans-serif'],
+        display: ['var(--font-body)', 'Inter', 'Arial', 'sans-serif'],
+        body: ['var(--font-body)', 'Inter', 'Arial', 'sans-serif'],
         mono: ['var(--font-mono)', 'IBM Plex Mono', 'monospace'],
       },
       borderRadius: {
@@ -36,11 +53,11 @@ const config: Config = {
         prose: '800px',
       },
       boxShadow: {
-        soft: '0 2px 12px rgba(10,10,10,0.04), 0 1px 2px rgba(10,10,10,0.03)',
-        card: '0 8px 30px rgba(10,10,10,0.06)',
-        'card-hover': '0 20px 48px rgba(10,10,10,0.12)',
-        glow: '0 8px 30px rgba(255,79,135,0.35)',
-        'glow-purple': '0 8px 30px rgba(91,75,255,0.35)',
+        soft: '0 2px 12px rgba(69,56,45,0.05), 0 1px 2px rgba(69,56,45,0.03)',
+        card: '0 8px 30px rgba(69,56,45,0.07)',
+        'card-hover': '0 20px 48px rgba(69,56,45,0.12)',
+        glow: '0 8px 30px rgba(169,130,88,0.2)',
+        'glow-purple': '0 8px 30px rgba(141,104,70,0.18)',
       },
       keyframes: {
         fadeUp: {

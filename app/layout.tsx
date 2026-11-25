@@ -1,19 +1,20 @@
 import type { Metadata } from 'next';
-import { Manrope, Inter, IBM_Plex_Mono } from 'next/font/google';
+import { Inter, Instrument_Serif, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 
-const display = Manrope({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
-  variable: '--font-display',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-body',
   display: 'swap',
 });
 
-const body = Inter({
+const accentSerif = Instrument_Serif({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-body',
+  weight: '400',
+  style: 'italic',
+  variable: '--font-accent-serif',
   display: 'swap',
 });
 
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${accentSerif.variable} ${mono.variable}`}>
       <head>
         <script
           dangerouslySetInnerHTML={{

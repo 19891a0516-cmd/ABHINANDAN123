@@ -30,7 +30,7 @@ export default function NeuralCrystal({ position = [0, 0, 0] as [number, number,
         <mesh ref={core}>
           <icosahedronGeometry args={[0.95, 0]} />
           <MeshTransmissionMaterial
-            color="#5B4BFF"
+            color="#A98258"
             thickness={0.6}
             roughness={0.08}
             transmission={0.94}
@@ -44,11 +44,11 @@ export default function NeuralCrystal({ position = [0, 0, 0] as [number, number,
 
         <mesh ref={shell} scale={1.35}>
           <icosahedronGeometry args={[0.95, 1]} />
-          <meshBasicMaterial color="#FF4F87" wireframe transparent opacity={0.25} />
+          <meshBasicMaterial color="#D9CBB8" wireframe transparent opacity={0.5} />
         </mesh>
 
-        <pointLight color="#5B4BFF" intensity={5} distance={4.5} decay={2} />
-        <pointLight color="#FF4F87" intensity={2.5} distance={3} decay={2} position={[0.6, 0.6, 0.6]} />
+        <pointLight color="#B38A5C" intensity={5} distance={4.5} decay={2} />
+        <pointLight color="#8D6846" intensity={2.5} distance={3} decay={2} position={[0.6, 0.6, 0.6]} />
       </group>
     </Float>
   );

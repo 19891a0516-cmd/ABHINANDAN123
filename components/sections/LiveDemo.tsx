@@ -40,7 +40,7 @@ function RiskRadar({ activeStage }: { activeStage: number }) {
             key={scale}
             points={radarCoordinates(radarIndicators.map(() => scale * 100))}
             fill="none"
-            stroke="#D9DCE5"
+            stroke="#D9CBB8"
             strokeWidth="1"
           />
         ))}
@@ -52,14 +52,14 @@ function RiskRadar({ activeStage }: { activeStage: number }) {
           const labelY = radarCenter.y + Math.sin(angle) * 112;
           return (
             <g key={indicator}>
-              <line x1={radarCenter.x} y1={radarCenter.y} x2={x} y2={y} stroke="#D9DCE5" strokeWidth="1" />
+              <line x1={radarCenter.x} y1={radarCenter.y} x2={x} y2={y} stroke="#D9CBB8" strokeWidth="1" />
               <text
                 x={labelX}
                 y={labelY}
                 textAnchor={Math.abs(Math.cos(angle)) < 0.3 ? 'middle' : Math.cos(angle) > 0 ? 'start' : 'end'}
                 dominantBaseline="middle"
                 fontSize="10"
-                fill="#737987"
+                fill="#887969"
               >
                 {indicator}
               </text>
@@ -101,7 +101,7 @@ export default function LiveDemo() {
   }, []);
 
   return (
-    <section id="demos" ref={sectionRef} className="bg-white px-6 py-24 lg:px-10">
+    <section id="demos" ref={sectionRef} className="bg-bg px-6 py-24 lg:px-10">
       <div className="mx-auto max-w-container">
         <Reveal className="mb-12 text-center">
           <div className="section-label mb-4">Risk intelligence demonstrations</div>

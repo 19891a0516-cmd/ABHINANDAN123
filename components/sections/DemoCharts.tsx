@@ -27,14 +27,14 @@ const trajectory = [
 ];
 
 const distribution = [
-  { stage: 'Stable', share: 62, color: '#0F9488' },
-  { stage: 'Drift', share: 19, color: '#3355E8' },
-  { stage: 'Squeeze', share: 11, color: '#C9930F' },
-  { stage: 'Stress', share: 6, color: '#E8622C' },
-  { stage: 'Distress', share: 2, color: '#A93226' },
+  { stage: 'Stable', share: 62, color: '#887969' },
+  { stage: 'Drift', share: 19, color: '#A98258' },
+  { stage: 'Squeeze', share: 11, color: '#B38A5C' },
+  { stage: 'Stress', share: 6, color: '#8D6846' },
+  { stage: 'Distress', share: 2, color: '#66594D' },
 ];
 
-const axisStyle = { fill: '#737987', fontSize: 11 };
+const axisStyle = { fill: '#887969', fontSize: 11 };
 
 export default function DemoCharts() {
   return (
@@ -44,20 +44,20 @@ export default function DemoCharts() {
         <div className="h-[270px]" role="img" aria-label="Demonstration chart showing a synthetic risk score rising over ten observations">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart accessibilityLayer data={trajectory} margin={{ top: 10, right: 12, bottom: 4, left: -18 }}>
-              <CartesianGrid stroke="#E8EAF0" strokeDasharray="3 3" />
+              <CartesianGrid stroke="#D9CBB8" strokeDasharray="3 3" />
               <XAxis dataKey="day" tick={axisStyle} tickLine={false} axisLine={false} />
               <YAxis domain={[0, 100]} tick={axisStyle} tickLine={false} axisLine={false} />
               <Tooltip
                 formatter={(value) => [`${value} / 100`, 'Illustrative score']}
                 labelFormatter={(label) => `Observation ${label}`}
-                contentStyle={{ borderRadius: 12, borderColor: '#E8EAF0', fontSize: 12 }}
+                contentStyle={{ borderRadius: 12, borderColor: '#D9CBB8', backgroundColor: '#FFFDF8', fontSize: 12 }}
               />
               <Line
                 type="monotone"
                 dataKey="score"
-                stroke="#5B4BFF"
+                stroke="#A98258"
                 strokeWidth={3}
-                dot={{ r: 3, fill: '#5B4BFF' }}
+                dot={{ r: 3, fill: '#A98258' }}
                 activeDot={{ r: 5 }}
               />
             </LineChart>
@@ -71,12 +71,12 @@ export default function DemoCharts() {
         <div className="h-[270px]" role="img" aria-label="Demonstration chart showing synthetic distribution percentages across five risk stages">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart accessibilityLayer data={distribution} layout="vertical" margin={{ top: 8, right: 14, bottom: 4, left: 4 }}>
-              <CartesianGrid stroke="#E8EAF0" strokeDasharray="3 3" horizontal={false} />
+              <CartesianGrid stroke="#D9CBB8" strokeDasharray="3 3" horizontal={false} />
               <XAxis type="number" domain={[0, 70]} tick={axisStyle} tickLine={false} axisLine={false} unit="%" />
               <YAxis type="category" dataKey="stage" width={72} tick={axisStyle} tickLine={false} axisLine={false} />
               <Tooltip
                 formatter={(value) => [`${value}%`, 'Illustrative share']}
-                contentStyle={{ borderRadius: 12, borderColor: '#E8EAF0', fontSize: 12 }}
+                contentStyle={{ borderRadius: 12, borderColor: '#D9CBB8', backgroundColor: '#FFFDF8', fontSize: 12 }}
               />
               <Bar dataKey="share" name="Illustrative share" radius={[0, 6, 6, 0]}>
                 {distribution.map((item) => <Cell key={item.stage} fill={item.color} />)}

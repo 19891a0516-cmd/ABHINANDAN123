@@ -55,13 +55,13 @@ function RadarSequence() {
         <group key={index} position={[-2.95 + index * 0.38, 0, -0.35 + index * 0.22]} rotation={[0.25, rotation, 0]}>
           <mesh>
             <circleGeometry args={[0.48, 6]} />
-            <meshBasicMaterial color={index === 2 ? '#FF4F87' : '#9C8CFF'} wireframe transparent opacity={0.64} />
+            <meshBasicMaterial color={index === 2 ? '#B38A5C' : '#D9CBB8'} wireframe transparent opacity={0.72} />
           </mesh>
           <mesh position={[0, 0, 0.015]}>
             <octahedronGeometry args={[0.22 + index * 0.04, 0]} />
             <meshStandardMaterial
-              color={index === 2 ? '#FF4F87' : '#8B7BFF'}
-              emissive={index === 2 ? '#FF4F87' : '#594BFF'}
+              color={index === 2 ? '#B38A5C' : '#A98258'}
+              emissive={index === 2 ? '#8D6846' : '#887969'}
               emissiveIntensity={0.7}
               metalness={0.5}
               roughness={0.28}
@@ -80,8 +80,8 @@ function ConvolutionBlock() {
         <mesh key={layer} position={[layer * 0.11, 0, layer * 0.12]} rotation={[0.35, 0.5, 0.2]}>
           <boxGeometry args={[0.42, 0.42, 0.32]} />
           <meshStandardMaterial
-            color={layer === 2 ? '#FF4F87' : '#8274FF'}
-            emissive={layer === 2 ? '#FF4F87' : '#5B4BFF'}
+            color={layer === 2 ? '#B38A5C' : '#A98258'}
+            emissive={layer === 2 ? '#8D6846' : '#887969'}
             emissiveIntensity={0.45}
             metalness={0.65}
             roughness={0.25}
@@ -103,8 +103,8 @@ function FeatureSequence() {
           <mesh key={index} position={[index * 0.18, (index % 2 ? 0.1 : -0.08), 0]} scale={[0.11, height, 0.11]}>
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
-              color={index === 5 ? '#FF4F87' : '#58D5C2'}
-              emissive={index === 5 ? '#FF4F87' : '#18A897'}
+              color={index === 5 ? '#8D6846' : '#B38A5C'}
+              emissive={index === 5 ? '#66594D' : '#A98258'}
               emissiveIntensity={0.45}
               metalness={0.55}
               roughness={0.3}
@@ -133,7 +133,7 @@ function StateSpaceCoil() {
   return (
     <mesh>
       <tubeGeometry args={[curve, 96, 0.025, 8, false]} />
-      <meshStandardMaterial color="#58D5C2" emissive="#17A996" emissiveIntensity={0.9} metalness={0.4} roughness={0.25} />
+      <meshStandardMaterial color="#B38A5C" emissive="#A98258" emissiveIntensity={0.7} metalness={0.4} roughness={0.25} />
     </mesh>
   );
 }
@@ -151,17 +151,17 @@ function EvolutionModel() {
   return (
     <group ref={model} scale={1.25}>
       <ambientLight intensity={0.7} />
-      <pointLight position={[-3, 2, 3]} color="#FF4F87" intensity={30} />
-      <pointLight position={[3, -1, 2]} color="#5B4BFF" intensity={24} />
-      <pointLight position={[0, 2, -2]} color="#58D5C2" intensity={18} />
+      <pointLight position={[-3, 2, 3]} color="#B38A5C" intensity={24} />
+      <pointLight position={[3, -1, 2]} color="#8D6846" intensity={18} />
+      <pointLight position={[0, 2, -2]} color="#A98258" intensity={16} />
       <Float speed={0.7} rotationIntensity={0.06} floatIntensity={0.12}>
         <RadarSequence />
         <ConvolutionBlock />
         <FeatureSequence />
         <StateSpaceCoil />
       </Float>
-      <FlowPath points={V1_FLOW} color="#FF79A7" />
-      <FlowPath points={PLUS_FLOW} color="#58D5C2" />
+      <FlowPath points={V1_FLOW} color="#A98258" />
+      <FlowPath points={PLUS_FLOW} color="#8D6846" />
     </group>
   );
 }
@@ -186,7 +186,7 @@ export default function EvolutionScene() {
 
   if (!canvasEnabled) {
     return (
-      <div className="grid h-full grid-cols-2 items-center gap-5 px-6 text-center text-xs font-mono uppercase tracking-wider text-white/70 sm:text-sm">
+      <div className="grid h-full grid-cols-2 items-center gap-5 px-6 text-center text-xs font-mono uppercase tracking-wider text-ink/70 sm:text-sm">
         <p>Radar-chart sequences → CNN → BiLSTM</p>
         <p>Feature sequences → state-space and attention</p>
       </div>

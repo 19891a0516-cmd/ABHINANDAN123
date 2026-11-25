@@ -5,11 +5,11 @@ export type RiskStage = {
 };
 
 export const stages: RiskStage[] = [
-  { name: 'Stable', color: '#0F9488', description: 'The observed history is comparatively steady.' },
-  { name: 'Drift', color: '#3355E8', description: 'Behaviour is beginning to move from its earlier pattern.' },
-  { name: 'Squeeze', color: '#C9930F', description: 'Several pressures are converging and merit closer review.' },
-  { name: 'Stress', color: '#E8622C', description: 'The recent trajectory shows material pressure.' },
-  { name: 'Distress', color: '#A93226', description: 'The observed pattern warrants timely human attention.' },
+  { name: 'Stable', color: '#887969', description: 'The observed history is comparatively steady.' },
+  { name: 'Drift', color: '#A98258', description: 'Behaviour is beginning to move from its earlier pattern.' },
+  { name: 'Squeeze', color: '#B38A5C', description: 'Several pressures are converging and merit closer review.' },
+  { name: 'Stress', color: '#8D6846', description: 'The recent trajectory shows material pressure.' },
+  { name: 'Distress', color: '#66594D', description: 'The observed pattern warrants timely human attention.' },
 ];
 
 export const overviewCards = [

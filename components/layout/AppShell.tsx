@@ -22,7 +22,7 @@ import EnterpriseApplications from '@/components/sections/EnterpriseApplications
 
 const LiveDemo = dynamic(() => import('@/components/sections/LiveDemo'), {
   ssr: false,
-  loading: () => <div className="min-h-96 animate-pulse rounded-3xl bg-slate-100" aria-label="Loading demonstration" />,
+  loading: () => <div className="min-h-96 animate-pulse rounded-3xl bg-secondary" aria-label="Loading demonstration" />,
 });
 
 export default function AppShell() {
@@ -69,9 +69,9 @@ export default function AppShell() {
       <header className="site-header sticky top-0 z-50 border-b border-border/70 bg-bg/90 backdrop-blur-xl">
         <div className="mx-auto flex min-h-16 max-w-[1440px] items-center justify-between gap-6 px-5 lg:px-8">
           <a href="#home" aria-label="RadarSeq home" onClick={closeMenu} className="shrink-0 rounded-md focus-ring">
-            <Logo />
+            <Logo priority />
           </a>
-          <nav aria-label="Main navigation" className="hidden min-w-0 flex-1 items-center justify-end gap-1 xl:flex">
+          <nav aria-label="Main navigation" className="hidden min-w-0 flex-1 items-center justify-end gap-7 xl:flex">
             {navLinks.map((item) => (
               <a
                 key={item.href}
@@ -91,8 +91,8 @@ export default function AppShell() {
           <button
             type="button"
             className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-bg text-ink/80 transition-colors hover:text-pink"
-            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={darkMode ? 'Switch to cream theme' : 'Switch to deeper beige theme'}
+            title={darkMode ? 'Switch to cream theme' : 'Switch to deeper beige theme'}
             onClick={toggleTheme}
           >
             {darkMode ? <Sun size={19} aria-hidden="true" /> : <Moon size={19} aria-hidden="true" />}
@@ -109,19 +109,21 @@ export default function AppShell() {
           </button>
         </div>
         {mobileOpen && (
-          <nav id="mobile-navigation" aria-label="Mobile navigation" className="border-t border-border bg-bg px-5 py-4 xl:hidden">
-            <div className="mx-auto grid max-w-3xl grid-cols-2 gap-2 sm:grid-cols-3">
+          <nav id="mobile-navigation" aria-label="Mobile navigation" className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-border bg-bg px-5 py-4 xl:hidden">
+            <div className="flex flex-col gap-1">
               {navLinks.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   aria-current={active === item.href ? 'location' : undefined}
                   onClick={closeMenu}
-                  className={`rounded-xl px-3 py-3 text-sm font-semibold focus-ring ${
-                    active === item.href ? 'bg-pink/10 text-pink' : 'text-ink/75 hover:bg-pink/5'
+                  className={`flex w-full items-center rounded-xl px-3 py-3 text-left text-sm font-semibold transition-colors duration-200 focus-ring ${
+                    active === item.href
+                      ? 'bg-alternative text-ink hover:bg-alternative'
+                      : 'text-ink hover:bg-secondary active:bg-alternative'
                   }`}
                 >
-                  {item.label}
+                  {item.label === 'Applied research' ? 'Applied Research' : item.label}
                 </a>
               ))}
             </div>

@@ -11,7 +11,7 @@ const EvolutionScene = dynamic(() => import('@/components/three/EvolutionScene')
 
 export default function Evolution() {
   return (
-    <section id="evolution" className="py-24 px-6 lg:px-10 bg-dark text-white">
+    <section id="evolution" className="light-surface py-24 px-6 lg:px-10 bg-dark text-white">
       <div className="max-w-container mx-auto">
         <Reveal className="text-center mb-16">
           <div className="section-label mb-4">Evolution</div>
@@ -24,7 +24,7 @@ export default function Evolution() {
         </Reveal>
 
         <Reveal className="mb-12">
-          <div className="relative h-[260px] overflow-hidden rounded-card border border-white/10 bg-[radial-gradient(ellipse_at_50%_50%,rgba(91,75,255,0.2),transparent_65%),linear-gradient(145deg,#10121F,#090A12)] sm:h-[320px]">
+          <div className="relative h-[260px] overflow-hidden rounded-card border border-border bg-[radial-gradient(ellipse_at_50%_50%,rgba(179,138,92,0.16),transparent_65%),linear-gradient(145deg,#FFFDF8,#E8DDCB)] sm:h-[320px]">
             <div className="pointer-events-none absolute inset-x-6 top-5 z-10 flex justify-between gap-4 text-[10px] font-mono font-bold uppercase tracking-wider sm:inset-x-9 sm:text-xs">
               <span className="text-pink-soft">v1 · CNN + BiLSTM</span>
               <span className="text-accent-teal">RadarSeq++ · State-space</span>
