@@ -10,7 +10,7 @@ export default function Pricing() {
       <div className="max-w-container mx-auto">
         <Reveal className="text-center mb-16">
           <div className="section-label mb-4">Delivery & indicative pricing</div>
-          <h2 className="font-display font-extrabold text-[32px] md:text-[44px] lg:text-[52px] tracking-tight max-w-3xl mx-auto">
+          <h2 className="font-display max-w-3xl mx-auto">
             Choose a delivery route that fits your workflow.
           </h2>
           <p className="mx-auto mt-5 max-w-prose text-gray">
@@ -29,15 +29,15 @@ export default function Pricing() {
                 <div className="flex items-center justify-between gap-4 mb-6">
                   <div>
                     <div className="font-mono text-xs uppercase tracking-[0.14em] text-ink/50">{plan.name}</div>
-                    <div className="mt-3 font-display text-4xl font-extrabold tracking-tight">{plan.price}</div>
+                    <div className="mt-3 font-display text-type-price">{plan.price}</div>
                   </div>
                 </div>
 
-                <p className="text-gray text-[15px] leading-relaxed mb-6">{plan.description}</p>
+                <p className="text-gray text-base leading-relaxed mb-6">{plan.description}</p>
 
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-[15px] text-ink/80">
+                    <li key={feature} className="flex items-start gap-3 text-base text-ink/80">
                       <span className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-pink/10 text-pink">
                         <Check size={12} strokeWidth={2.4} />
                       </span>

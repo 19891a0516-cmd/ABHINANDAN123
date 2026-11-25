@@ -4,6 +4,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { stages } from '@/lib/data';
+import { themeColors } from '@/lib/theme';
 import RadarOrb from './objects/RadarOrb';
 import NeuralCrystal from './objects/NeuralCrystal';
 import NetworkOrb from './objects/NetworkOrb';
@@ -45,7 +46,7 @@ function StageTrajectory({ activeStageIndex }: { activeStageIndex: number }) {
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
-        <lineBasicMaterial color="#D9CBB8" transparent opacity={0.55} />
+        <lineBasicMaterial color={themeColors.border} transparent opacity={0.75} />
       </lineSegments>
       {stages.map((stage, index) => (
         <group key={stage.name} position={points[index]}>
@@ -106,7 +107,7 @@ export default function HeroScene({ activeStageIndex }: { activeStageIndex: numb
     return (
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(179,138,92,0.2),transparent_18%),radial-gradient(circle_at_55%_45%,rgba(141,104,70,0.16),transparent_44%)]"
+        className="hero-3d-fallback absolute inset-0"
       />
     );
   }
@@ -118,12 +119,12 @@ export default function HeroScene({ activeStageIndex }: { activeStageIndex: numb
       gl={{ antialias: true, alpha: true }}
     >
       <Suspense fallback={null}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[3, 4, 5]} intensity={0.8} color="#FFFDF8" castShadow />
-        <pointLight position={[-3, -2, 2]} color="#B38A5C" intensity={2} />
-        <pointLight position={[3, 2, -2]} color="#8D6846" intensity={2} />
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[3, 4, 5]} intensity={1.1} color={themeColors.ink} castShadow />
+        <pointLight position={[-3, -2, 2]} color={themeColors.accent} intensity={1.4} />
+        <pointLight position={[3, 2, -2]} color={themeColors.accentSoft} intensity={1.2} />
 
-        <fog attach="fog" args={['#EDE3D3', 8, 14]} />
+        <fog attach="fog" args={[themeColors.background, 8, 14]} />
 
         <RadarOrb position={[-2.1, 0.4, 0]} color={stages[activeStageIndex].color} />
         <NeuralCrystal position={[2.1, -0.3, -0.6]} />

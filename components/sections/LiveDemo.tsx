@@ -40,7 +40,7 @@ function RiskRadar({ activeStage }: { activeStage: number }) {
             key={scale}
             points={radarCoordinates(radarIndicators.map(() => scale * 100))}
             fill="none"
-            stroke="#D9CBB8"
+            stroke="rgb(var(--color-border) / var(--color-border-alpha))"
             strokeWidth="1"
           />
         ))}
@@ -52,14 +52,14 @@ function RiskRadar({ activeStage }: { activeStage: number }) {
           const labelY = radarCenter.y + Math.sin(angle) * 112;
           return (
             <g key={indicator}>
-              <line x1={radarCenter.x} y1={radarCenter.y} x2={x} y2={y} stroke="#D9CBB8" strokeWidth="1" />
+              <line x1={radarCenter.x} y1={radarCenter.y} x2={x} y2={y} stroke="rgb(var(--color-border) / var(--color-border-alpha))" strokeWidth="1" />
               <text
                 x={labelX}
                 y={labelY}
                 textAnchor={Math.abs(Math.cos(angle)) < 0.3 ? 'middle' : Math.cos(angle) > 0 ? 'start' : 'end'}
                 dominantBaseline="middle"
                 fontSize="10"
-                fill="#887969"
+                fill="rgb(var(--color-muted-text))"
               >
                 {indicator}
               </text>
@@ -105,8 +105,8 @@ export default function LiveDemo() {
       <div className="mx-auto max-w-container">
         <Reveal className="mb-12 text-center">
           <div className="section-label mb-4">Risk intelligence demonstrations</div>
-          <h2 className="mx-auto max-w-3xl font-display text-[32px] font-bold tracking-tight md:text-[44px] lg:text-[52px]">
-            Explore an illustrative risk journey.
+          <h2 className="mx-auto max-w-3xl font-display">
+            Explore an illustrative <span className="editorial-accent">risk journey.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-prose text-lg leading-relaxed text-gray">
             Demonstration only. Charts use fixed sample values, not customer data, a live service or model inference.
@@ -119,7 +119,7 @@ export default function LiveDemo() {
               <div className="mb-3 inline-flex rounded-full bg-pink/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide text-pink">
                 Demonstration · sample scenario
               </div>
-              <h3 className="font-display text-2xl font-bold">Risk Radar</h3>
+              <h3 className="font-display">Risk Radar</h3>
               <p className="mt-3 text-sm leading-relaxed text-gray">
                 Select a stage to explore the illustrative journey. A stage is not a prediction or recommendation.
               </p>
@@ -134,7 +134,7 @@ export default function LiveDemo() {
                     className="rounded-full border px-3 py-2 text-sm font-semibold transition-colors focus-ring"
                     style={{
                       color: activeStage === index ? stage.color : undefined,
-                      borderColor: activeStage === index ? stage.color : 'rgb(var(--color-border))',
+                      borderColor: activeStage === index ? stage.color : 'rgb(var(--color-border) / var(--color-border-alpha))',
                       background: activeStage === index ? `${stage.color}14` : 'transparent',
                     }}
                   >
@@ -160,7 +160,7 @@ export default function LiveDemo() {
               <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <p className="section-label mb-2">Portfolio analytics</p>
-                  <h3 className="font-display text-xl font-bold">Illustrative sample distribution</h3>
+                  <h3 className="font-display">Illustrative sample distribution</h3>
                 </div>
                 <span className="rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-gray">
                   Demonstration · sample data

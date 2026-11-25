@@ -1,0 +1,26 @@
+export const themeColors = {
+  background: '#0B0A14',
+  surface: '#17142F',
+  secondary: '#12102A',
+  surfaceElevated: '#1D1A3C',
+  border: '#8F8AAD',
+  accent: '#F0245A',
+  accentSoft: '#D4568F',
+  accentStrong: '#FF7097',
+  accentHover: '#FF7097',
+  ink: '#F2F0FA',
+  body: '#C9C5DD',
+  muted: '#8F8AAD',
+  node: {
+    blue: '#2F5BEA',
+    violet: '#6C5CE7',
+    red: '#C0192B',
+  },
+  risk: {
+    stable: '#4FD1C5',
+    drift: '#E0B31F',
+    squeeze: '#E2582B',
+    stress: '#FF7097',
+    distress: '#FF5B6E',
+  },
+} as const;

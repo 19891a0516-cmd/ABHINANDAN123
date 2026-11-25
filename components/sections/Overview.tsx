@@ -10,8 +10,8 @@ export default function Overview() {
       <div className="max-w-5xl mx-auto">
         <Reveal className="mb-20">
           <div className="section-label mb-4">About RadarSeq</div>
-          <h2 className="font-display font-extrabold tracking-[-0.03em] leading-[1.1] text-[44px] md:text-[56px] lg:text-[64px]">
-            A temporal perspective on changing behaviour.
+          <h2 className="font-display">
+            A temporal perspective on <span className="editorial-accent">changing behaviour.</span>
           </h2>
           <p className="mt-7 max-w-3xl text-lg leading-relaxed text-ink/60">
             RadarSeq grew from a research question: what do we miss when we reduce a history to a snapshot?
@@ -30,12 +30,12 @@ export default function Overview() {
               className="flex gap-8 lg:gap-12"
             >
               <div className="shrink-0">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink to-purple flex items-center justify-center text-white font-display font-bold text-lg">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink to-purple flex items-center justify-center text-bg font-display font-bold text-lg">
                   {i + 1}
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-display font-bold text-2xl lg:text-3xl mb-4 text-ink">{c.title}</h3>
+                <h3 className="font-display mb-4 text-ink">{c.title}</h3>
                 <p className="text-lg text-ink/60 leading-relaxed max-w-2xl">{c.body}</p>
               </div>
             </motion.div>

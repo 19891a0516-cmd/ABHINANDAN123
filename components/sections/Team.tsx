@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { team } from '@/lib/data';
 
-const teamColor = '#A98258';
+const teamColor = 'rgb(var(--color-accent))';
 
 function initials(name: string) {
   return name
@@ -23,16 +23,16 @@ export default function Team() {
       <div className="max-w-container mx-auto">
         <Reveal className="text-center mb-16">
           <div className="section-label mb-4">Our team</div>
-          <h2 className="font-display font-extrabold text-[32px] md:text-[44px] lg:text-[52px] tracking-tight max-w-3xl mx-auto">
-            The people behind RadarSeq.
+          <h2 className="font-display max-w-3xl mx-auto">
+            The people behind <span className="editorial-accent">RadarSeq.</span>
           </h2>
           <svg width="56" height="56" viewBox="0 0 56 56" fill="none" className="mx-auto mt-6">
-            <circle cx="28" cy="10" r="4" fill="#A98258" />
-            <circle cx="16" cy="30" r="4" fill="#A98258" />
-            <circle cx="28" cy="30" r="4.5" fill="#A98258" />
-            <circle cx="44" cy="30" r="4" fill="#A98258" />
-            <path d="M28 14V27M20 27L28 14L28 27" stroke="#D9CBB8" strokeWidth="1.4" />
-            <path d="M28 27L40 27L28 14" stroke="#D9CBB8" strokeWidth="1.4" />
+            <circle cx="28" cy="10" r="4" fill="rgb(var(--color-accent))" />
+            <circle cx="16" cy="30" r="4" fill="rgb(var(--color-accent))" />
+            <circle cx="28" cy="30" r="4.5" fill="rgb(var(--color-accent))" />
+            <circle cx="44" cy="30" r="4" fill="rgb(var(--color-accent))" />
+            <path d="M28 14V27M20 27L28 14L28 27" stroke="rgb(var(--color-border) / var(--color-border-alpha))" strokeWidth="1.4" />
+            <path d="M28 27L40 27L28 14" stroke="rgb(var(--color-border) / var(--color-border-alpha))" strokeWidth="1.4" />
           </svg>
         </Reveal>
 
@@ -49,12 +49,12 @@ export default function Team() {
                 max={10}
               >
                 <div
-                  className="mx-auto mb-5 mt-2 flex h-16 w-16 items-center justify-center rounded-full font-display text-lg font-bold text-white"
+                  className="mx-auto mb-5 mt-2 flex h-16 w-16 items-center justify-center rounded-full font-display text-lg font-bold text-bg"
                   style={{ background: color }}
                 >
                   {initials(m.name)}
                 </div>
-                <h3 className="mb-1.5 font-display text-[15px] font-bold leading-snug">
+                <h3 className="mb-1.5 font-display">
                   {isAbhinandan ? 'ABHINANDAN DYAVATHI' : m.name}
                 </h3>
                 {isAbhinandan ? (

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Line } from '@react-three/drei';
 import * as THREE from 'three';
+import { themeColors } from '@/lib/theme';
 
 const V1_FLOW: [number, number, number][] = [
   [-3.35, -0.35, 0],
@@ -55,13 +56,13 @@ function RadarSequence() {
         <group key={index} position={[-2.95 + index * 0.38, 0, -0.35 + index * 0.22]} rotation={[0.25, rotation, 0]}>
           <mesh>
             <circleGeometry args={[0.48, 6]} />
-            <meshBasicMaterial color={index === 2 ? '#B38A5C' : '#D9CBB8'} wireframe transparent opacity={0.72} />
+            <meshBasicMaterial color={index === 2 ? themeColors.accent : themeColors.accentSoft} wireframe transparent opacity={0.72} />
           </mesh>
           <mesh position={[0, 0, 0.015]}>
             <octahedronGeometry args={[0.22 + index * 0.04, 0]} />
             <meshStandardMaterial
-              color={index === 2 ? '#B38A5C' : '#A98258'}
-              emissive={index === 2 ? '#8D6846' : '#887969'}
+              color={index === 2 ? themeColors.accent : themeColors.accentSoft}
+              emissive={index === 2 ? themeColors.accentStrong : themeColors.accent}
               emissiveIntensity={0.7}
               metalness={0.5}
               roughness={0.28}
@@ -80,8 +81,8 @@ function ConvolutionBlock() {
         <mesh key={layer} position={[layer * 0.11, 0, layer * 0.12]} rotation={[0.35, 0.5, 0.2]}>
           <boxGeometry args={[0.42, 0.42, 0.32]} />
           <meshStandardMaterial
-            color={layer === 2 ? '#B38A5C' : '#A98258'}
-            emissive={layer === 2 ? '#8D6846' : '#887969'}
+            color={layer === 2 ? themeColors.accent : themeColors.accentSoft}
+            emissive={layer === 2 ? themeColors.accentStrong : themeColors.accent}
             emissiveIntensity={0.45}
             metalness={0.65}
             roughness={0.25}
@@ -103,8 +104,8 @@ function FeatureSequence() {
           <mesh key={index} position={[index * 0.18, (index % 2 ? 0.1 : -0.08), 0]} scale={[0.11, height, 0.11]}>
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
-              color={index === 5 ? '#8D6846' : '#B38A5C'}
-              emissive={index === 5 ? '#66594D' : '#A98258'}
+              color={index === 5 ? themeColors.accentStrong : themeColors.accent}
+              emissive={index === 5 ? themeColors.accentHover : themeColors.accentStrong}
               emissiveIntensity={0.45}
               metalness={0.55}
               roughness={0.3}
@@ -133,7 +134,7 @@ function StateSpaceCoil() {
   return (
     <mesh>
       <tubeGeometry args={[curve, 96, 0.025, 8, false]} />
-      <meshStandardMaterial color="#B38A5C" emissive="#A98258" emissiveIntensity={0.7} metalness={0.4} roughness={0.25} />
+      <meshStandardMaterial color={themeColors.accent} emissive={themeColors.accentStrong} emissiveIntensity={0.7} metalness={0.4} roughness={0.25} />
     </mesh>
   );
 }
@@ -151,17 +152,17 @@ function EvolutionModel() {
   return (
     <group ref={model} scale={1.25}>
       <ambientLight intensity={0.7} />
-      <pointLight position={[-3, 2, 3]} color="#B38A5C" intensity={24} />
-      <pointLight position={[3, -1, 2]} color="#8D6846" intensity={18} />
-      <pointLight position={[0, 2, -2]} color="#A98258" intensity={16} />
+      <pointLight position={[-3, 2, 3]} color={themeColors.accent} intensity={14} />
+      <pointLight position={[3, -1, 2]} color={themeColors.accentSoft} intensity={12} />
+      <pointLight position={[0, 2, -2]} color={themeColors.accentStrong} intensity={10} />
       <Float speed={0.7} rotationIntensity={0.06} floatIntensity={0.12}>
         <RadarSequence />
         <ConvolutionBlock />
         <FeatureSequence />
         <StateSpaceCoil />
       </Float>
-      <FlowPath points={V1_FLOW} color="#A98258" />
-      <FlowPath points={PLUS_FLOW} color="#8D6846" />
+      <FlowPath points={V1_FLOW} color={themeColors.accent} />
+      <FlowPath points={PLUS_FLOW} color={themeColors.accentStrong} />
     </group>
   );
 }

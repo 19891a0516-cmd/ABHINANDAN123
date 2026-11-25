@@ -2,8 +2,9 @@
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Float, MeshTransmissionMaterial } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import * as THREE from 'three';
+import { themeColors } from '@/lib/theme';
 
 /**
  * "AI Neural Crystal" — a faceted icosahedron crystal with a refractive
@@ -29,26 +30,24 @@ export default function NeuralCrystal({ position = [0, 0, 0] as [number, number,
       <group position={position}>
         <mesh ref={core}>
           <icosahedronGeometry args={[0.95, 0]} />
-          <MeshTransmissionMaterial
-            color="#A98258"
-            thickness={0.6}
-            roughness={0.08}
-            transmission={0.94}
-            ior={1.3}
-            chromaticAberration={0.04}
-            distortion={0.15}
-            distortionScale={0.3}
-            temporalDistortion={0.1}
+          <meshPhysicalMaterial
+            color={themeColors.accentSoft}
+            emissive={themeColors.accent}
+            emissiveIntensity={0.12}
+            roughness={0.36}
+            metalness={0.04}
+            transparent
+            opacity={0.95}
           />
         </mesh>
 
         <mesh ref={shell} scale={1.35}>
           <icosahedronGeometry args={[0.95, 1]} />
-          <meshBasicMaterial color="#D9CBB8" wireframe transparent opacity={0.5} />
+          <meshBasicMaterial color={themeColors.accentSoft} wireframe transparent opacity={0.32} />
         </mesh>
 
-        <pointLight color="#B38A5C" intensity={5} distance={4.5} decay={2} />
-        <pointLight color="#8D6846" intensity={2.5} distance={3} decay={2} position={[0.6, 0.6, 0.6]} />
+        <pointLight color={themeColors.accent} intensity={2.4} distance={4.5} decay={2} />
+        <pointLight color={themeColors.accentStrong} intensity={1.3} distance={3} decay={2} position={[0.6, 0.6, 0.6]} />
       </group>
     </Float>
   );

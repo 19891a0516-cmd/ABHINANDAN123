@@ -157,19 +157,22 @@ const additionalInformation = [
 ];
 
 export default function AbhinandanProfile() {
-  const [isDark, setIsDark] = useState(false);
+  const [lightMode, setLightMode] = useState(false);
 
   useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
+    setLightMode(document.documentElement.classList.contains('light'));
   }, []);
 
   const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    document.documentElement.classList.toggle('dark', next);
+    const nextLightMode = !document.documentElement.classList.contains('light');
+    setLightMode(nextLightMode);
+    document.documentElement.classList.toggle('light', nextLightMode);
+    document.documentElement.classList.remove('dark');
     try {
-      localStorage.setItem('theme', next ? 'dark' : 'light');
-    } catch {}
+      localStorage.setItem('theme', nextLightMode ? 'light' : 'dark');
+    } catch (error) {
+      console.error('Unable to save the theme preference.', error);
+    }
   };
 
   return (
@@ -177,7 +180,7 @@ export default function AbhinandanProfile() {
       <header className="sticky top-0 z-40 border-b border-border/70 bg-bg/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-container items-center justify-between gap-4 px-6 lg:px-10">
           <Link href="/" aria-label="RadarSeq home" className="shrink-0 rounded-md focus-ring">
-            <Logo compact priority />
+            <Logo compact />
           </Link>
           <nav aria-label="Profile sections" className="hidden items-center gap-5 text-sm font-semibold text-ink/65 lg:flex">
             <a className="transition-colors hover:text-pink" href="#experience">Experience</a>
@@ -189,11 +192,11 @@ export default function AbhinandanProfile() {
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <button
               type="button"
-              aria-label="Toggle warm background theme"
+              aria-label={lightMode ? 'Use dark theme' : 'Use light theme'}
               onClick={toggleTheme}
               className="flex h-10 w-10 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-pink/5 hover:text-pink focus-ring"
             >
-              {isDark ? <Sun size={17} /> : <Moon size={17} />}
+              {lightMode ? <Moon size={17} /> : <Sun size={17} />}
             </button>
             <Link href="/" className="inline-flex items-center gap-2 rounded-full px-2 py-2 text-sm font-bold text-ink transition-colors hover:text-pink focus-ring sm:px-3">
               <ArrowLeft size={16} />
@@ -210,8 +213,8 @@ export default function AbhinandanProfile() {
             <Reveal>
               <div className="card overflow-hidden rounded-card border border-border/70 p-4 shadow-card">
                 <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[18px] bg-surface">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(179,138,92,0.18),transparent_38%),radial-gradient(circle_at_85%_80%,rgba(141,104,70,0.12),transparent_42%)]" />
-                  <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-[#B38A5C] to-[#8D6846] font-display text-5xl font-extrabold text-white shadow-glow sm:h-48 sm:w-48">
+                  <div className="editorial-glow absolute inset-0" />
+                  <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-pink to-purple font-display text-5xl font-extrabold text-bg shadow-glow sm:h-48 sm:w-48">
                     AD
                   </div>
                   <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-border/70 bg-bg/90 px-3 py-2 text-xs font-semibold text-ink/75 shadow-soft">
@@ -224,10 +227,10 @@ export default function AbhinandanProfile() {
 
             <Reveal delay={0.08}>
               <div className="mb-5 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-xs font-bold text-pink sm:text-sm">
-                <span className="h-2 w-2 rounded-full bg-gradient-to-r from-[#B38A5C] to-[#8D6846]" />
+                <span className="h-2 w-2 rounded-full bg-gradient-to-r from-pink to-purple" />
                 Software Engineering • AI Research • Machine Learning
               </div>
-              <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-[-0.04em] text-ink sm:text-5xl lg:text-6xl">
+              <h1 className="font-display text-ink">
                 Abhinandan <span className="italic-pink">Dyavathi</span>
               </h1>
               <p className="mt-5 font-display text-xl font-bold text-ink sm:text-2xl">
@@ -287,11 +290,11 @@ export default function AbhinandanProfile() {
               {experience.map((position, index) => (
                 <Reveal key={position.role} delay={index * 0.08}>
                   <article className="card relative mb-8 rounded-card p-6 last:mb-0 sm:p-9">
-                    <span className="absolute -left-[36px] top-8 h-4 w-4 rounded-full border-[3px] border-bg bg-gradient-to-br from-[#B38A5C] to-[#8D6846] shadow-glow sm:-left-[49px]" />
+                    <span className="absolute -left-[36px] top-8 h-4 w-4 rounded-full border-[3px] border-bg bg-gradient-to-br from-pink to-purple shadow-glow sm:-left-[49px]" />
                     <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                       <div>
                         <p className="section-label !text-xs">{position.role}</p>
-                        {position.organization && <h3 className="mt-2 font-display text-lg font-bold">{position.organization}</h3>}
+                        {position.organization && <h3 className="mt-2 font-display">{position.organization}</h3>}
                         <p className="mt-1 flex items-center gap-1.5 text-sm text-gray">
                           <MapPin size={14} className="shrink-0 text-pink" />
                           {position.location}
@@ -303,7 +306,7 @@ export default function AbhinandanProfile() {
                     </div>
                     <ul className="mt-6 space-y-3">
                       {position.responsibilities.map((responsibility) => (
-                        <li key={responsibility} className="flex gap-3 text-sm leading-relaxed text-gray sm:text-[15px]">
+                        <li key={responsibility} className="flex gap-3 text-sm leading-relaxed text-gray sm:text-base">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-pink" />
                           {responsibility}
                         </li>
@@ -325,10 +328,10 @@ export default function AbhinandanProfile() {
                 <Reveal key={title} delay={(index % 3) * 0.05}>
                   <article className="card group h-full rounded-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
                     <div className="mb-5 flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pink/10 text-pink transition-colors group-hover:bg-pink group-hover:text-white">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pink/10 text-pink transition-colors group-hover:bg-pink group-hover:text-bg">
                         <Icon size={19} />
                       </span>
-                      <h3 className="font-display font-bold">{title}</h3>
+                      <h3 className="font-display">{title}</h3>
                     </div>
                     <TagList tags={skills} />
                   </article>
@@ -345,11 +348,11 @@ export default function AbhinandanProfile() {
               <Reveal>
                 <article className="card flex h-full flex-col rounded-card border-t-2 border-t-purple p-7 sm:p-9">
                   <p className="section-label !text-xs">RadarSeq / RadarSeq++</p>
-                  <h3 className="mt-3 font-display text-2xl font-bold">Temporal risk intelligence</h3>
+                  <h3 className="mt-3 font-display">Temporal risk intelligence</h3>
                   <p className="mt-4 flex-1 leading-relaxed text-gray">
                     RadarSeq reads the path a signal takes over time, not a single point-in-time score — so a slow drift toward risk is visible long before it becomes a loss.
                   </p>
-                  <Link href="/?section=projects" className="focus-ring mt-7 inline-flex w-fit items-center gap-2 font-bold text-pink transition-colors hover:text-purple">
+                  <Link href="/?section=projects" className="focus-ring mt-7 inline-flex w-fit items-center gap-2 font-bold text-pink transition-colors hover:text-accent-strong">
                     Explore RadarSeq Research <ArrowRight size={17} />
                   </Link>
                 </article>
@@ -357,7 +360,7 @@ export default function AbhinandanProfile() {
               <Reveal delay={0.08}>
                 <article className="card h-full rounded-card p-7 sm:p-9">
                   <p className="section-label !text-xs">University of East London</p>
-                  <h3 className="mt-3 font-display text-xl font-bold">Stock Price Prediction Using Deep Learning</h3>
+                  <h3 className="mt-3 font-display">Stock Price Prediction Using Deep Learning</h3>
                   <p className="mt-4 leading-relaxed text-gray">
                     An MSc research project exploring deep learning approaches for financial time-series forecasting using historical financial data.
                   </p>
@@ -379,10 +382,10 @@ export default function AbhinandanProfile() {
                     <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                       <div>
                         <p className="section-label !text-xs">{item.degree}</p>
-                        <h3 className="mt-2 font-display text-lg font-bold">{item.institution}</h3>
+                        <h3 className="mt-2 font-display">{item.institution}</h3>
                         <p className="mt-1 text-sm text-gray">{item.location}</p>
                       </div>
-                      <span className="w-fit rounded-full bg-purple/10 px-3 py-1.5 text-xs font-bold text-purple">{item.dates}</span>
+                      <span className="w-fit rounded-full bg-pink-soft px-3 py-1.5 text-xs font-bold text-accent-strong">{item.dates}</span>
                     </div>
                     {item.details && (
                       <div className="mt-5">
@@ -408,7 +411,7 @@ export default function AbhinandanProfile() {
                   </span>
                   <div className="min-w-0">
                     <p className="section-label !text-xs">University of East London</p>
-                    <h3 className="mt-2 font-display text-xl font-bold">Stock Price Prediction Using Deep Learning</h3>
+                    <h3 className="mt-2 font-display">Stock Price Prediction Using Deep Learning</h3>
                     <p className="mt-3 leading-relaxed text-gray">
                       Published research based on the MSc Computer Science dissertation completed at the University of East London.
                     </p>
@@ -438,7 +441,7 @@ export default function AbhinandanProfile() {
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-pink/10 to-purple/10 text-pink">
                       <Briefcase size={18} />
                     </span>
-                    <h3 className="font-display font-bold">{focus}</h3>
+                    <h3 className="font-display">{focus}</h3>
                   </article>
                 </Reveal>
               ))}
@@ -464,7 +467,7 @@ export default function AbhinandanProfile() {
               <ul className="mt-7 grid gap-3 sm:grid-cols-2">
                 {additionalInformation.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-gray">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-[#B38A5C] to-[#8D6846]" />
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-pink to-purple" />
                     {item}
                   </li>
                 ))}
@@ -476,11 +479,11 @@ export default function AbhinandanProfile() {
         <section id="contact" className="scroll-mt-24 px-6 pb-16 pt-8 lg:px-10">
           <Reveal className="mx-auto max-w-container">
             <div className="relative overflow-hidden rounded-card border border-border bg-alternative px-7 py-10 text-ink sm:px-12 sm:py-14">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_90%_10%,rgba(179,138,92,0.16),transparent_35%),radial-gradient(circle_at_10%_90%,rgba(141,104,70,0.12),transparent_32%)]" />
+              <div className="editorial-glow pointer-events-none absolute inset-0 opacity-70" />
               <div className="relative grid gap-9 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
                   <p className="section-label !text-xs">Get in touch</p>
-                  <h2 className="mt-3 font-display text-3xl font-extrabold sm:text-4xl">Let&apos;s build something intelligent.</h2>
+                  <h2 className="mt-3 font-display">Let&apos;s build something <span className="editorial-accent">intelligent.</span></h2>
                   <p className="mt-4 max-w-2xl leading-relaxed text-gray">
                     Interested in software engineering, AI research, or collaboration? Get in touch.
                   </p>
@@ -501,7 +504,7 @@ export default function AbhinandanProfile() {
         </section>
 
         <div className="px-6 pb-12 text-center lg:px-10">
-          <Link href="/" className="inline-flex items-center gap-2 rounded-md font-semibold text-pink transition-colors hover:text-purple focus-ring">
+          <Link href="/" className="inline-flex items-center gap-2 rounded-md font-semibold text-pink transition-colors hover:text-accent-strong focus-ring">
             <ArrowLeft size={16} /> Back to RadarSeq
           </Link>
         </div>
@@ -516,7 +519,7 @@ function SectionHeading({ eyebrow, title, align = 'center' }: { eyebrow: string;
   return (
     <Reveal className={align === 'center' ? 'text-center' : 'text-left'}>
       <p className="section-label mb-3 !text-xs">{eyebrow}</p>
-      <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{title}</h2>
+      <h2 className="font-display">{title}</h2>
     </Reveal>
   );
 }

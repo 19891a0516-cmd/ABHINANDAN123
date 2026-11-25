@@ -1,3 +1,5 @@
+import { themeColors } from './theme';
+
 export type RiskStage = {
   name: string;
   color: string;
@@ -5,11 +7,11 @@ export type RiskStage = {
 };
 
 export const stages: RiskStage[] = [
-  { name: 'Stable', color: '#887969', description: 'The observed history is comparatively steady.' },
-  { name: 'Drift', color: '#A98258', description: 'Behaviour is beginning to move from its earlier pattern.' },
-  { name: 'Squeeze', color: '#B38A5C', description: 'Several pressures are converging and merit closer review.' },
-  { name: 'Stress', color: '#8D6846', description: 'The recent trajectory shows material pressure.' },
-  { name: 'Distress', color: '#66594D', description: 'The observed pattern warrants timely human attention.' },
+  { name: 'Stable', color: themeColors.risk.stable, description: 'The observed history is comparatively steady.' },
+  { name: 'Drift', color: themeColors.risk.drift, description: 'Behaviour is beginning to move from its earlier pattern.' },
+  { name: 'Squeeze', color: themeColors.risk.squeeze, description: 'Several pressures are converging and merit closer review.' },
+  { name: 'Stress', color: themeColors.risk.stress, description: 'The recent trajectory shows material pressure.' },
+  { name: 'Distress', color: themeColors.risk.distress, description: 'The observed pattern warrants timely human attention.' },
 ];
 
 export const overviewCards = [

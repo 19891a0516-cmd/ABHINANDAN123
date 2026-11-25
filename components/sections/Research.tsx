@@ -24,8 +24,8 @@ export default function Research() {
       <div className="mx-auto max-w-container">
         <Reveal className="mb-14 text-center">
           <div className="section-label mb-4">Applied research</div>
-          <h2 className="mx-auto max-w-3xl font-display text-[32px] font-bold tracking-tight md:text-[44px] lg:text-[52px]">
-            From a research question to a decision workflow.
+          <h2 className="mx-auto max-w-3xl font-display">
+            From a research question to a <span className="editorial-accent">decision workflow.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-prose text-lg leading-relaxed text-gray">
             RadarSeq research studies temporal patterns and explanation methods, with courier churn as its
@@ -37,7 +37,7 @@ export default function Research() {
           {researchDirections.map((direction, index) => (
             <Reveal key={direction.title} delay={index * 0.06}>
               <article className="card h-full rounded-card p-8">
-                <h3 className="mb-3 font-display text-xl font-bold">{direction.title}</h3>
+                <h3 className="mb-3 font-display">{direction.title}</h3>
                 <p className="text-sm leading-relaxed text-gray">{direction.body}</p>
               </article>
             </Reveal>
@@ -46,7 +46,7 @@ export default function Research() {
 
         <Reveal>
           <div className="rounded-card border border-border bg-alternative p-7 text-ink md:p-10">
-            <h3 className="font-display text-2xl font-bold">Applied research status</h3>
+            <h3 className="font-display">Applied research status</h3>
             <p className="mt-3 max-w-prose leading-relaxed text-gray">
               Research validation, implementation work and active research are distinct stages. No result shown
               here implies a live deployment, production performance or an automated decision.

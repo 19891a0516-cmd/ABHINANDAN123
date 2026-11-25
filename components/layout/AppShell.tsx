@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MotionConfig } from 'framer-motion';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
@@ -28,10 +28,19 @@ const LiveDemo = dynamic(() => import('@/components/sections/LiveDemo'), {
 export default function AppShell() {
   const [active, setActive] = useState('#about');
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [lightMode, setLightMode] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null);
+  const restoreFocusOnClose = useRef(true);
+
+  const closeMenu = (restoreFocus = true) => {
+    restoreFocusOnClose.current = restoreFocus;
+    setMobileOpen(false);
+  };
 
   useEffect(() => {
-    setDarkMode(document.documentElement.classList.contains('dark'));
+    setLightMode(document.documentElement.classList.contains('light'));
 
     const sections = navLinks
       .map((item) => document.querySelector(item.href))
@@ -50,13 +59,65 @@ export default function AppShell() {
     return () => observer.disconnect();
   }, []);
 
-  const closeMenu = () => setMobileOpen(false);
+  useEffect(() => {
+    const updateScrollState = () => setIsScrolled(window.scrollY > 8);
+    updateScrollState();
+    window.addEventListener('scroll', updateScrollState, { passive: true });
+    return () => window.removeEventListener('scroll', updateScrollState);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const menuTrigger = mobileMenuTriggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    mobileMenuRef.current?.querySelector<HTMLElement>('#mobile-navigation a')?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        restoreFocusOnClose.current = true;
+        setMobileOpen(false);
+        return;
+      }
+
+      if (event.key !== 'Tab' || !mobileMenuRef.current) return;
+
+      const focusable = Array.from(
+        mobileMenuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+      ).filter((element) => element.getClientRects().length > 0);
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const current = document.activeElement;
+
+      if (event.shiftKey && (current === first || !mobileMenuRef.current.contains(current))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (current === last || !mobileMenuRef.current.contains(current))) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+      if (restoreFocusOnClose.current) menuTrigger?.focus();
+      restoreFocusOnClose.current = true;
+    };
+  }, [mobileOpen]);
+
   const toggleTheme = () => {
-    const nextDarkMode = !document.documentElement.classList.contains('dark');
-    document.documentElement.classList.toggle('dark', nextDarkMode);
-    setDarkMode(nextDarkMode);
+    const nextLightMode = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', nextLightMode);
+    document.documentElement.classList.remove('dark');
+    setLightMode(nextLightMode);
     try {
-      localStorage.setItem('theme', nextDarkMode ? 'dark' : 'light');
+      localStorage.setItem('theme', nextLightMode ? 'light' : 'dark');
     } catch (error) {
       console.error('Unable to save the theme preference.', error);
     }
@@ -66,68 +127,105 @@ export default function AppShell() {
     <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-bg text-ink">
       <a className="skip-link" href="#main">Skip to content</a>
-      <header className="site-header sticky top-0 z-50 border-b border-border/70 bg-bg/90 backdrop-blur-xl">
-        <div className="mx-auto flex min-h-16 max-w-[1440px] items-center justify-between gap-6 px-5 lg:px-8">
-          <a href="#home" aria-label="RadarSeq home" onClick={closeMenu} className="shrink-0 rounded-md focus-ring">
-            <Logo priority />
+      <header className={`site-header sticky top-0 z-50 border-b border-border/70 bg-bg/90 backdrop-blur-xl ${isScrolled ? 'site-header-scrolled' : ''} ${mobileOpen ? 'site-header-menu-open' : ''}`}>
+        <div className="mx-auto grid min-h-16 max-w-[1800px] grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 px-4 sm:px-5 lg:px-8 xl:grid-cols-[172px_minmax(0,1fr)_auto] xl:gap-x-[18px] xl:px-6">
+          <a href="#home" aria-label="RadarSeq home" onClick={() => closeMenu(false)} className="site-header-brand min-w-[160px] shrink-0 rounded-md focus-ring">
+            <Logo />
           </a>
-          <nav aria-label="Main navigation" className="hidden min-w-0 flex-1 items-center justify-end gap-7 xl:flex">
-            {navLinks.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                aria-current={active === item.href ? 'location' : undefined}
-                className={`nav-link rounded-full px-3 py-2 text-sm font-semibold transition-colors focus-ring ${
-                  active === item.href ? 'bg-pink/10 text-pink' : 'text-ink/70 hover:bg-pink/5 hover:text-pink'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-          <a href="#contact" className="btn-pill btn-primary !hidden !h-11 !px-5 !text-sm focus-ring xl:!inline-flex">
-            Discuss your use case
-          </a>
-          <button
-            type="button"
-            className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-bg text-ink/80 transition-colors hover:text-pink"
-            aria-label={darkMode ? 'Switch to cream theme' : 'Switch to deeper beige theme'}
-            title={darkMode ? 'Switch to cream theme' : 'Switch to deeper beige theme'}
-            onClick={toggleTheme}
-          >
-            {darkMode ? <Sun size={19} aria-hidden="true" /> : <Moon size={19} aria-hidden="true" />}
-          </button>
-          <button
-            type="button"
-            className="focus-ring flex h-11 w-11 items-center justify-center rounded-full xl:hidden"
-            aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-navigation"
-            onClick={() => setMobileOpen((open) => !open)}
-          >
-            {mobileOpen ? <X size={21} /> : <Menu size={21} />}
-          </button>
-        </div>
-        {mobileOpen && (
-          <nav id="mobile-navigation" aria-label="Mobile navigation" className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-border bg-bg px-5 py-4 xl:hidden">
-            <div className="flex flex-col gap-1">
+          <nav aria-label="Main" className="site-header-desktop-nav hidden min-w-0 items-center justify-center xl:flex">
+            <div className="site-header-nav-list flex min-w-0 items-center justify-center">
               {navLinks.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  aria-current={active === item.href ? 'location' : undefined}
-                  onClick={closeMenu}
-                  className={`flex w-full items-center rounded-xl px-3 py-3 text-left text-sm font-semibold transition-colors duration-200 focus-ring ${
-                    active === item.href
-                      ? 'bg-alternative text-ink hover:bg-alternative'
-                      : 'text-ink hover:bg-secondary active:bg-alternative'
-                  }`}
+                  aria-current={active === item.href ? 'page' : undefined}
+                  className="nav-link focus-ring rounded-full transition-colors"
                 >
-                  {item.label === 'Applied research' ? 'Applied Research' : item.label}
+                  {item.label}
                 </a>
               ))}
             </div>
           </nav>
+          <div className="site-header-actions flex shrink-0 items-center justify-self-end gap-2">
+            <button
+              type="button"
+              className="focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-bg text-ink transition-colors hover:bg-secondary"
+              aria-label={lightMode ? 'Use dark theme' : 'Use light theme'}
+              aria-pressed={lightMode}
+              title={lightMode ? 'Use dark theme' : 'Use light theme'}
+              onClick={toggleTheme}
+            >
+              {lightMode ? <Moon size={19} aria-hidden="true" /> : <Sun size={19} aria-hidden="true" />}
+            </button>
+            <button
+              ref={mobileMenuTriggerRef}
+              type="button"
+              className="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-border text-ink transition-colors hover:bg-secondary xl:hidden"
+              aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation"
+              aria-haspopup="dialog"
+              onClick={() => (mobileOpen ? closeMenu() : setMobileOpen(true))}
+            >
+              <Menu size={21} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+        {mobileOpen && (
+          <div
+            className="mobile-navigation-backdrop xl:hidden"
+            onPointerDown={(event) => {
+              if (event.target === event.currentTarget) closeMenu();
+            }}
+          >
+            <div
+              ref={mobileMenuRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mobile-navigation-title"
+              className="mobile-navigation-dialog"
+            >
+              <div className="mobile-navigation-header">
+                <a href="#home" aria-label="RadarSeq home" onClick={() => closeMenu(false)} className="rounded-md focus-ring">
+                  <Logo />
+                </a>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-border text-ink transition-colors hover:bg-secondary"
+                    aria-label={lightMode ? 'Use dark theme' : 'Use light theme'}
+                    aria-pressed={lightMode}
+                    title={lightMode ? 'Use dark theme' : 'Use light theme'}
+                    onClick={toggleTheme}
+                  >
+                    {lightMode ? <Moon size={19} aria-hidden="true" /> : <Sun size={19} aria-hidden="true" />}
+                  </button>
+                  <button
+                    type="button"
+                    className="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-border text-ink transition-colors hover:bg-secondary"
+                    aria-label="Close navigation"
+                    onClick={() => closeMenu()}
+                  >
+                    <X size={21} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+              <h2 id="mobile-navigation-title" className="sr-only">Navigation</h2>
+              <nav id="mobile-navigation" aria-label="Main" className="mobile-navigation-links">
+                {navLinks.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active === item.href ? 'page' : undefined}
+                    onClick={() => closeMenu(false)}
+                    className="mobile-navigation-link focus-ring"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </div>
         )}
       </header>
 

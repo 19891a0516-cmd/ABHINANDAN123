@@ -2,6 +2,12 @@
 
 The site uses Next.js 14 App Router, TypeScript, Tailwind CSS, Framer Motion and React Three Fiber. The public content is maintained in `lib/data.ts`; research metrics are presented as reported study results, and interactive visualisations use labelled synthetic data.
 
+## Design system
+
+Inter is loaded with `next/font` for headings, body copy, navigation and buttons; IBM Plex Mono is used for section indices and technical labels. The measured type scale is defined with CSS custom properties in `app/globals.css` and exposed as Tailwind tokens in `tailwind.config.ts`: fluid 60–84px page titles, 36px mobile / 48px tablet-and-up section titles, 24px subheadings, 16px body text, and 14px navigation and buttons.
+
+The light palette is tokenized in `app/globals.css` and mirrored in `lib/theme.ts` for 3D assets. The reusable RadarSeq mark is an inline SVG in `components/layout/Logo.tsx`; `app/icon.svg` and `public/opengraph-image.png` provide the site icon and social preview.
+
 ## Local development
 
 ```bash

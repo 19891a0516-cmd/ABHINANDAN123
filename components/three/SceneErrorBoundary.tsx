@@ -20,7 +20,7 @@ export default class SceneErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: unknown) {
     // eslint-disable-next-line no-console
-    console.warn('3D hero scene failed to render, falling back to static background.', error);
+    console.warn('3D scene failed to render, falling back to a static illustration.', error);
   }
 
   render() {

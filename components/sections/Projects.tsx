@@ -14,7 +14,7 @@ export default function Projects() {
       <div className="max-w-container mx-auto">
         <Reveal className="text-center mb-16">
           <div className="section-label mb-4">Projects & solution areas</div>
-          <h2 className="font-display font-extrabold text-[32px] md:text-[44px] lg:text-[52px] tracking-tight max-w-3xl mx-auto">
+          <h2 className="font-display max-w-3xl mx-auto">
             Built for how <span className="italic-pink">your team</span> actually works.
           </h2>
         </Reveal>
@@ -36,8 +36,8 @@ export default function Projects() {
                       {p.status}
                     </span>
                   </div>
-                  <h3 className="font-display font-bold text-xl mb-4">{p.title}</h3>
-                  <p className="mb-4 text-[15px] leading-relaxed text-gray">{p.summary}</p>
+                  <h3 className="font-display mb-4">{p.title}</h3>
+                  <p className="mb-4 text-base leading-relaxed text-gray">{p.summary}</p>
                   <p className="text-sm font-semibold text-ink/80">{p.question}</p>
                   <Link href={`/projects/${p.slug}`} className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-pink focus-ring">
                     Project details <span aria-hidden="true">→</span>

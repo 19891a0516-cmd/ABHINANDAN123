@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
-import { Inter, Instrument_Serif, IBM_Plex_Mono } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Inter, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 
@@ -7,14 +7,6 @@ const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-body',
-  display: 'swap',
-});
-
-const accentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  style: 'italic',
-  variable: '--font-accent-serif',
   display: 'swap',
 });
 
@@ -42,20 +34,42 @@ export const metadata: Metadata = {
       'Research into temporal modelling, changing risk and evidence-led decision workflows.',
     type: 'website',
     url: '/',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'RadarSeq — Temporal Risk Intelligence',
+      },
+    ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'RadarSeq — Temporal Risk Intelligence',
+    description:
+      'Research into temporal modelling, changing risk and evidence-led decision workflows.',
+    images: ['/opengraph-image.png'],
+  },
+  icons: {
+    icon: '/Radarseq123/icon.svg',
+    shortcut: '/Radarseq123/icon.svg',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0B0A14',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${accentSerif.variable} ${mono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${mono.variable}`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `try {
   var t = localStorage.getItem('theme');
-  if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-  }
+  document.documentElement.classList.toggle('light', t === 'light');
+  document.documentElement.classList.remove('dark');
 } catch (e) {}`,
           }}
         />

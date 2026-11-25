@@ -33,8 +33,8 @@ export default function Contact() {
       <div className="mx-auto max-w-container">
         <Reveal className="mb-14 text-center">
           <div className="section-label mb-4">Contact</div>
-          <h2 className="mx-auto max-w-3xl font-display text-[32px] font-extrabold tracking-tight md:text-[44px] lg:text-[52px]">
-            Tell us what you need to see sooner.
+          <h2 className="mx-auto max-w-3xl font-display">
+            Tell us what you need to see <span className="editorial-accent">sooner.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-prose text-lg leading-relaxed text-gray">
             Share the decision you want to improve and the data you can work with. We will help identify a sensible starting point.
@@ -47,7 +47,7 @@ export default function Contact() {
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-pink/10 text-pink">
                 <Mail size={22} />
               </div>
-              <h3 className="font-display text-xl font-bold">Start a conversation</h3>
+              <h3 className="font-display">Start a conversation</h3>
               <p className="mt-3 text-sm leading-relaxed text-gray">
                 A useful first discussion starts with a business question, relevant history and who would review the result.
               </p>
@@ -78,7 +78,7 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   required
-                  className="w-full resize-y rounded-2xl border border-border bg-white/70 px-5 py-4 text-[15px] outline-none focus-ring focus:border-pink"
+                  className="w-full resize-y rounded-2xl border border-border bg-surface px-5 py-4 text-base outline-none focus-ring focus:border-pink"
                   placeholder="The business question, relevant history and who would act on the result..."
                 />
               </div>
@@ -123,7 +123,7 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="w-full rounded-2xl border border-border bg-white/70 px-5 py-3.5 text-[15px] outline-none focus-ring focus:border-pink"
+        className="w-full rounded-2xl border border-border bg-surface px-5 py-3.5 text-base outline-none focus-ring focus:border-pink"
       />
     </div>
   );

@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import Reveal from '@/components/ui/Reveal';
 
 export default function CtaBanner() {
   return (
@@ -20,8 +18,8 @@ export default function CtaBanner() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="font-display font-extrabold tracking-[-0.04em] leading-[1.08] text-[48px] md:text-[56px] lg:text-[64px] mb-8">
-            Detect risk signals early.<br />Act with certainty.
+          <h2 className="font-display mb-8">
+            Detect risk signals early.<br /><span className="editorial-accent">Act with certainty.</span>
           </h2>
 
           <p className="text-lg lg:text-xl text-ink/70 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
@@ -37,7 +35,6 @@ export default function CtaBanner() {
             className="btn-pill btn-primary focus-ring inline-flex items-center gap-2"
           >
             Get a strategic briefing
-            <ArrowRight size={16} strokeWidth={2.5} />
           </motion.a>
         </motion.div>
       </div>
